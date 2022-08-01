@@ -51,7 +51,7 @@ public class CaptchaController {
         }
         // 绘制字符
         String strCode = "";
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 4; i++) {
             String rand = String.valueOf(codeArr[random.nextInt(codeArr.length)]);
             strCode = strCode + rand;
             // 将验证码显示到图像中
