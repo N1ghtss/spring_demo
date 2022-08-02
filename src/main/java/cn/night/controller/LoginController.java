@@ -28,6 +28,7 @@ public class LoginController {
     @PostMapping("login")
     @ResponseBody
     public Map<String, Object> login(String userName, String password, String captcha, String type, HttpSession session) {
+
         // 判断用户名，密码，用户类型，验证码是否为空
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password) || StringUtils.isEmpty(type) || StringUtils.isEmpty(captcha)) {
             return MapControl.getInstance().error("用户名或密码不能为空").getMap();

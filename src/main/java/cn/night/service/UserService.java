@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 public class UserService {
@@ -21,6 +20,6 @@ public class UserService {
                 .add("userName", userName)
                 .add("userPwd", password)
                 .getMap();
-        return userDao.detail(map);
+        return userDao.find(map);
     }
 }
