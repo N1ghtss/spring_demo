@@ -16,7 +16,7 @@
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
     -->
     <!-- 明细查询 -->
-    <select id="find" resultMap="User">
+    <select id="find" resultType="cn.night.entity.User">
         select * from tb_user
         <include refid="FindUser"/>
     </select>

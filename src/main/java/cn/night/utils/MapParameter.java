@@ -6,7 +6,7 @@ import java.util.Map;
 public class MapParameter {
 
     //目标对象
-    private Map<String, Object> paramMap = new HashMap<>();
+    private Map<String, Object> paramMap = new HashMap<String,Object>();
 
     //私有构造
     private MapParameter() {
