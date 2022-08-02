@@ -20,6 +20,7 @@
         select * from tb_user
         <include refid="FindUser"/>
     </select>
+    <select id="query" resultType="cn.night.entity.User"></select>
 
     <!-- 查询通用片段 -->
     <sql id="FindUser">

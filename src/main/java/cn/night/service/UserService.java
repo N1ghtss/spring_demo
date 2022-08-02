@@ -4,10 +4,13 @@ import cn.night.dao.UserDao;
 import cn.night.entity.User;
 import cn.night.utils.MapParameter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 import java.util.Map;
 import java.util.Objects;
 
+@Service
 public class UserService {
     @Autowired
     private UserDao userDao;
