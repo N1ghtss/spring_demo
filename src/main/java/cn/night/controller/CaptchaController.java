@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.util.Random;
 
 @Controller
-@RequestMapping("/captcha")
+@RequestMapping("captcha")
 public class CaptchaController {
     private char[] codeArr = new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-    @RequestMapping("/code")
+    @RequestMapping("code")
     public void getCode(HttpServletResponse response, HttpSession session) throws IOException {
         int width = 80;
         int height = 37;
@@ -50,17 +50,17 @@ public class CaptchaController {
             g.drawLine(x, y, x + x1, y + y1);
         }
         // 绘制字符
-        String strCode = "";
+        StringBuilder strCode = new StringBuilder();
         for (int i = 0; i < 4; i++) {
             String rand = String.valueOf(codeArr[random.nextInt(codeArr.length)]);
-            strCode = strCode + rand;
+            strCode.append(rand);
             // 将验证码显示到图像中
             g.setColor(new Color(random.nextInt(110) + 20,
                     random.nextInt(110) + 20,
                     random.nextInt(110) + 20));
             g.drawString(rand, 13 * i + 6, 28);
         }
-        session.setAttribute("captcha", strCode.toLowerCase()); //大小写都可
+        session.setAttribute("captcha", strCode.toString().toLowerCase()); //大小写都可
         g.dispose();
         // 输出图像到页面
         ImageIO.write(image, "JPEG", response.getOutputStream());
