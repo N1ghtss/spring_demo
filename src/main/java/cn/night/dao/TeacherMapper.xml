@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.night.dao.TeacherDao">
+    <!--    定义通用的resultMap-->
+    <resultMap id="Teacher" type="cn.night.entity.Teacher">
+        <id column="id" property="id"/>
+        <result column="id" property="id"/>
+        <result column="teacher_name" property="teacherName"/>
+        <result column="teacher_pwd" property="teacherPwd"/>
+        <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+    <!--
+            <sql>用来封装sql语句，<include>来调用的
+            如果refid="userList"，则一定要定义唯一id在<sql>标签中
+    -->
+    <!--    明细查询-->
+    <select id="detail" resultMap="Teacher">
+        select * from tb_teacher
+        <include refid="FindTeacher"/>
+    </select>
+    <!--    查询通用片段-->
+    <sql id="FindTeacher">
+        <where>
+            <if test="id !=null">and id=#{id}</if>
+            <if test="teacherName !=null and teacherName!=''">and teacher_name=#{teacherName}</if>
+            <if test="teacherPwd !=null and teacherPwd!=''">and teacher_pwd=#{teacherPwd}</if>
+            <if test="name !=null and name!=''">and name=#{name}</if>
+            <if test="remark !=null and remark!=''">and remark=#{remark}</if>
+        </where>
+    </sql>
+</mapper>

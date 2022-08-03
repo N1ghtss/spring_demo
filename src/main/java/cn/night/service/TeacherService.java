@@ -1,25 +1,26 @@
 package cn.night.service;
 
+import cn.night.dao.TeacherDao;
 import cn.night.dao.UserDao;
+import cn.night.entity.Teacher;
 import cn.night.entity.User;
 import cn.night.utils.MapParameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.Map;
 
 @Service
-public class UserService {
+public class TeacherService {
     @Autowired
-    private UserDao userDao;
+    private TeacherDao teacherDao;
 
     // 登录
-    public User login(String userName, String password) {
+    public Teacher login(String userName, String password) {
         Map<String, Object> map = MapParameter.getInstance()
-                .add("userName", userName)
-                .add("userPwd", password)
+                .add("teacherName", userName)
+                .add("teacherPwd", password)
                 .getMap();
-        return userDao.detail(map);
+        return teacherDao.detail(map);
     }
 }

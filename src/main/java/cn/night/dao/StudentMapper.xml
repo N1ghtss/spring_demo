@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.night.dao.StudentDao">
+    <!-- 定义通用的 resultMap-->
+    <resultMap id="Student" type="cn.night.entity.Student">
+        <id column="id" property="id"/>
+        <result column="id" property="id"/>
+        <result column="stu_no" property="stuNo"/>
+        <result column="stu_name" property="stuName"/>
+        <result column="stu_pwd" property="stuPwd"/>
+        <result column="card_no" property="cardNo"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="phone" property="phone"/>
+        <result column="pname" property="pname"/>
+        <result column="telephone" property="telephone"/>
+        <result column="addr" property="addr"/>
+        <result column="join_date" property="joinDate"/>
+        <result column="status" property="status"/>
+        <result column="clazz_id" property="clazzId"/>
+        <result column="subject_id" property="subjectId"/>
+    </resultMap>
+
+    <!--
+        <sql>用来封装SQL语句，<include>来调用的
+        如果用了refid="userlist"，则一定要定义唯一id在sql标签中
+    -->
+    <!-- 明细查询 -->
+    <select id="detail" resultMap="Student">
+        select * from tb_student
+        <include refid="FindStudent"/>
+    </select>
+
+    <!-- 查询的通用片段 -->
+    <sql id="FindStudent">
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="stuNo != null and stuNo != ''">and stu_no=#{stuNo}</if>
+            <if test="stuName != null and stuName != ''">and stu_name=#{stuName}</if>
+            <if test="stuPwd != null and stuPwd != ''">and stu_pwd=#{stuPwd}</if>
+            <if test="cardNo != null and cardNo != ''">and card_no=#{cardNo}</if>
+            <if test="gender != null and gender != ''">and gender=#{gender}</if>
+            <if test="phone != null and phone != ''">and phone=#{phone}</if>
+            <if test="pname != null and pname != ''">and pname=#{pname}</if>
+            <if test="telephone != null and telephone != ''">and telephone=#{telephone}</if>
+            <if test="addr != null and addr != ''">and addr=#{addr}</if>
+            <if test="status != null and status != ''">and status=#{status}</if>
+            <if test="clazzId != null">and clazz_id=#{clazzId}</if>
+            <if test="subjectId != null">and subject_id=#{subjectId}</if>
+
+        </where>
+    </sql>
+</mapper>

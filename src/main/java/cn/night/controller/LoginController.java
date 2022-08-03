@@ -1,6 +1,10 @@
 package cn.night.controller;
 
+import cn.night.entity.Student;
+import cn.night.entity.Teacher;
 import cn.night.entity.User;
+import cn.night.service.StudentService;
+import cn.night.service.TeacherService;
 import cn.night.service.UserService;
 import cn.night.utils.MD5Utils;
 import cn.night.utils.MapControl;
@@ -19,6 +23,10 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private TeacherService teacherService;
+    @Autowired
+    private StudentService studentService;
 
     @GetMapping("/login")
     public String login() {
@@ -46,6 +54,26 @@ public class LoginController {
             if (user != null) {
                 session.setAttribute("user", user);
                 session.setAttribute("type", 1);
+                return MapControl.getInstance().success().add("data", user).getMap();
+            } else {
+                return MapControl.getInstance().error("用户名或密码错误").getMap();
+            }
+        }
+        if ("2".equals(type)) {
+            Teacher user = teacherService.login(userName, MD5Utils.getMD5(password));
+            if (user != null) {
+                session.setAttribute("user", user);
+                session.setAttribute("type", 2);
+                return MapControl.getInstance().success().add("data", user).getMap();
+            } else {
+                return MapControl.getInstance().error("用户名或密码错误").getMap();
+            }
+        }
+        if ("3".equals(type)) {
+            Student user = studentService.login(userName, MD5Utils.getMD5(password));
+            if (user != null) {
+                session.setAttribute("user", user);
+                session.setAttribute("type", 3);
                 return MapControl.getInstance().success().add("data", user).getMap();
             } else {
                 return MapControl.getInstance().error("用户名或密码错误").getMap();
