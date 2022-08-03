@@ -33,7 +33,7 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     @ResponseBody
     public Map<String, Object> login(String userName, String password, String captcha, String type, HttpSession session) {
 

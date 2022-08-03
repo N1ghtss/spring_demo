@@ -17,7 +17,7 @@
     <!-- 明细查询 -->
     <select id="detail" resultMap="Clazz">
         select * from tb_clazz
-        <include refid="FindUser"/>
+        <include refid="Find"/>
         limit 1
     </select>
     <select id="query" resultMap="Clazz">
@@ -26,7 +26,7 @@
     </select>
 
     <!-- 查询通用片段 -->
-    <sql id="FindUser">
+    <sql id="Find">
         <where>
             <if test="id != null">and id=#{id}</if>
             <if test="clazzName != null and clazzName != '' ">and clazz_name=#{clazzName}</if>

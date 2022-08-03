@@ -18,12 +18,12 @@
     <!-- 明细查询 -->
     <select id="detail" resultMap="User">
         select * from tb_user
-        <include refid="FindUser"/>
+        <include refid="Find"/>
     </select>
     <select id="query" resultType="cn.night.entity.User"></select>
 
     <!-- 查询通用片段 -->
-    <sql id="FindUser">
+    <sql id="Find">
         <where>
             <if test="id != null">and id=#{id}</if>
             <if test="userName != null and userName != '' ">and user_name=#{userName}</if>

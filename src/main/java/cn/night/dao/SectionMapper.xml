@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.night.dao.SectionDao">
+    <!-- 定义通用的resultMap-->
+    <resultMap id="Section" type="cn.night.entity.Section">
+        <id column="id" property="id"/>
+        <result column="id" property="id"/>
+        <result column="year" property="year"/>
+        <result column="type" property="type"/>
+        <result column="clazz_id" property="clazzId"/>
+        <result column="teacher_id" property="teacherId"/>
+        <result column="course_id" property="courseId"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <!--
+        <sql id="1">用来封装SQL语句，<include refid="1">来调用
+    -->
+    <!-- 明细查询 -->
+    <select id="detail" resultMap="Section">
+        select * from tb_course
+        <include refid="Find"/>
+        limit 1
+    </select>
+    <select id="query" resultMap="Section">
+        select *
+        from tb_course
+    </select>
+
+    <!-- 查询通用片段 -->
+    <sql id="Find">
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="year != null and year != '' ">and year=#{year}</if>
+            <if test="type != null and type != '' ">and type=#{type}</if>
+            <if test="clazzId != null and clazzId != '' ">and clazz_id=#{clazzId}</if>
+            <if test="teacherId != null and teacherId != '' ">and teacher_id=#{teacherId}</if>
+            <if test="courseId != null and courseId != '' ">and course_id=#{courseId}</if>
+            <if test="remark != null and remark != '' ">and remark=#{remark}</if>
+
+        </where>
+    </sql>
+
+</mapper>

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.night.dao.SubjectDao">
+<mapper namespace="cn.night.dao.CourseDao">
     <!-- 定义通用的resultMap-->
-    <resultMap id="Subject" type="cn.night.entity.Subject">
+    <resultMap id="Course" type="cn.night.entity.Course">
         <id column="id" property="id"/>
         <result column="id" property="id"/>
-        <result column="subject_name" property="subjectName"/>
-        <result column="college" property="college"/>
+        <result column="course_name" property="courseName"/>
         <result column="remark" property="remark"/>
     </resultMap>
 
@@ -15,22 +14,21 @@
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
     -->
     <!-- 明细查询 -->
-    <select id="detail" resultMap="Subject">
-        select * from tb_subject
+    <select id="detail" resultMap="Course">
+        select * from tb_course
         <include refid="Find"/>
         limit 1
     </select>
-    <select id="query" resultMap="Subject">
+    <select id="query" resultMap="Course">
         select *
-        from tb_subject
+        from tb_course
     </select>
 
     <!-- 查询通用片段 -->
     <sql id="Find">
         <where>
             <if test="id != null">and id=#{id}</if>
-            <if test="subjectName != null and subjectName != '' ">and subject_name=#{subjectName}</if>
-            <if test="college != null and college != '' ">and college=#{college}</if>
+            <if test="courseName != null and courseName != '' ">and course_name=#{courseName}</if>
             <if test="remark != null and remark != '' ">and remark=#{remark}</if>
 
         </where>
