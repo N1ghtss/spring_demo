@@ -31,6 +31,11 @@
     <select id="detail" resultMap="Student">
         select * from tb_student
         <include refid="FindStudent"/>
+        limit 1
+    </select>
+    <select id="query" resultType="cn.night.entity.Student">
+        select *
+        from tb_student
     </select>
 
     <!-- 查询的通用片段 -->

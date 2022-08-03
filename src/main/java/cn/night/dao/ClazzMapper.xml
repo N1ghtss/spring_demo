@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.night.dao.ClazzDao">
+    <!-- 定义通用的resultMap-->
+    <resultMap id="Clazz" type="cn.night.entity.Clazz">
+        <id column="id" property="id"/>
+        <result column="id" property="id"/>
+        <result column="clazz_name" property="clazzName"/>
+        <result column="subject_id" property="subjectId"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <!--
+        <sql id="1">用来封装SQL语句，<include refid="1">来调用
+    -->
+    <!-- 明细查询 -->
+    <select id="detail" resultMap="Clazz">
+        select * from tb_clazz
+        <include refid="FindUser"/>
+        limit 1
+    </select>
+    <select id="query" resultMap="Clazz">
+        select *
+        from tb_clazz
+    </select>
+
+    <!-- 查询通用片段 -->
+    <sql id="FindUser">
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="clazzName != null and clazzName != '' ">and clazz_name=#{clazzName}</if>
+            <if test="subject_id != null and subject_id != '' ">and subject_id=#{subject_id}</if>
+            <if test="remark != null and remark != '' ">and remark=#{remark}</if>
+
+        </where>
+    </sql>
+
+</mapper>

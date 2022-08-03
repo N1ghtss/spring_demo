@@ -16,8 +16,14 @@
             <sql>用来封装sql语句，<include>来调用的
             如果refid="userList"，则一定要定义唯一id在<sql>标签中
     -->
-    <!--    明细查询-->
+    <!--   明细查询(只查询一条数据）  -->
     <select id="detail" resultMap="Teacher">
+        select * from tb_teacher
+        <include refid="FindTeacher"/>
+        limit 1
+    </select>
+    <!--   明细查询  -->
+    <select id="query" resultMap="Teacher">
         select * from tb_teacher
         <include refid="FindTeacher"/>
     </select>
