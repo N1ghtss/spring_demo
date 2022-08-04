@@ -7,6 +7,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class Student extends Entity {
+    public Student() {
+        
+    }
+
     private Integer id;
     private String stuNo;
     private String stuName;
@@ -24,6 +28,24 @@ public class Student extends Entity {
     private String status;
     private Integer clazzId;
     private Integer subjectId;
+    private Subject subject;
+    private Clazz clazz;
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Clazz getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(Clazz clazz) {
+        this.clazz = clazz;
+    }
 
     public Integer getId() {
         return id;

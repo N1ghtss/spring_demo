@@ -33,11 +33,16 @@
         <include refid="FindStudent"/>
         limit 1
     </select>
-    <select id="query" resultType="cn.night.entity.Student">
+    <select id="query" resultMap="Student">
         select *
         from tb_student
     </select>
-
+    <!-- 查询总记录条数-->
+    <select id="count" resultType="int">
+        select count(1) from tb_student
+        <include refid="FindStudent"/>
+        limit 1
+    </select>
     <!-- 查询的通用片段 -->
     <sql id="FindStudent">
         <where>

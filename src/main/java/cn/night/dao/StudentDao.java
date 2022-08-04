@@ -11,4 +11,6 @@ public interface StudentDao {
     Student detail(Map<String, Object> map);
 
     List<Student> query(Map<String, Object> map);
+
+    int count(Map<String, Object> map);
 }

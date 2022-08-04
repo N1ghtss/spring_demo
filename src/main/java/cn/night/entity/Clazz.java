@@ -7,6 +7,15 @@ public class Clazz extends Entity {
     private String clazzName;
     private Integer subjectId;
     private String remark;
+    private Subject subject;
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 
     @Override
     public String toString() {

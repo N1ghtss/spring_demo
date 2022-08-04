@@ -58,6 +58,25 @@ public class IndexController {
         modelMap.addAttribute("teacherCnt", teachers.size());
         modelMap.addAttribute("studentCnt", students.size());
         modelMap.addAttribute("subjectCnt", subjects.size());
+        // 2.班级学生数量
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (Clazz clazz : clazzes) {
+            Map<String, Object> map = new HashMap<>();
+            // 设置班级名称
+            map.put("name", clazz.getClazzName());
+            // 统计学生数量
+            int count = 0;
+            for (Student student : students) {
+                if (student.getClazzId() == clazz.getId()) {
+                    count++;
+                }
+            }
+            // 设置学生数量
+            map.put("cnt", count);
+            mapList.add(map);
+
+        }
+        modelMap.addAttribute("mapList", mapList);
         return "main";
     }
 }

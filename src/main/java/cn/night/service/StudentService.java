@@ -2,7 +2,6 @@ package cn.night.service;
 
 import cn.night.dao.StudentDao;
 import cn.night.entity.Student;
-import cn.night.entity.Teacher;
 import cn.night.utils.BeanMapUtils;
 import cn.night.utils.MapParameter;
 import com.github.pagehelper.PageHelper;
@@ -30,5 +29,9 @@ public class StudentService {
             PageHelper.startPage(student.getPage(), student.getLimit());
         }
         return studentDao.query(BeanMapUtils.beanToMap(student));
+    }
+
+    public int count(Student student) {
+        return studentDao.count(BeanMapUtils.beanToMap(student));
     }
 }

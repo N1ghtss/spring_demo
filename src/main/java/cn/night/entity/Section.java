@@ -10,6 +10,43 @@ public class Section extends Entity {
     private Integer teacherId;
     private Integer courseId;
     private String remark;
+    private Course course;
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Clazz getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(Clazz clazz) {
+        this.clazz = clazz;
+    }
+
+    public Integer getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Integer selected) {
+        this.selected = selected;
+    }
+
+    private Teacher teacher;
+    private Clazz clazz;
+    private Integer selected; // 逃课数量，辅助查询
 
     public Integer getId() {
         return id;
