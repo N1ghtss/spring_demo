@@ -10,4 +10,6 @@ public interface CourseDao {
     Course detail(Map<String, Object> map);
 
     List<Course> query(Map<String, Object> map);
+
+    int count(Map<String, Object> map);
 }

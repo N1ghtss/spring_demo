@@ -23,6 +23,11 @@
         select *
         from tb_course
     </select>
+    <select id="count" resultType="int">
+        select count(1) from tb_course
+        <include refid="Find"/>
+        limit 1
+    </select>
 
     <!-- 查询通用片段 -->
     <sql id="Find">

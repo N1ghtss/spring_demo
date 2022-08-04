@@ -3,6 +3,7 @@ package cn.night.service;
 import cn.night.dao.StudentDao;
 import cn.night.entity.Student;
 import cn.night.utils.BeanMapUtils;
+import cn.night.utils.MD5Utils;
 import cn.night.utils.MapParameter;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class StudentService {
 
     public int count(Student student) {
         return studentDao.count(BeanMapUtils.beanToMap(student));
+    }
+
+    public int add(Student student) {
+        student.setStuPwd(MD5Utils.getMD5(student.getStuPwd()));
+        return studentDao.insert(student);
     }
 }

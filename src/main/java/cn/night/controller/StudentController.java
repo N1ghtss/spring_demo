@@ -6,14 +6,11 @@ import cn.night.entity.Subject;
 import cn.night.service.ClazzService;
 import cn.night.service.StudentService;
 import cn.night.service.SubjectService;
-import cn.night.utils.Entity;
 import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -31,6 +28,25 @@ public class StudentController {
     @GetMapping("list")
     public String list() {
         return "student/list";
+    }
+
+    @GetMapping("add")
+    public String add(ModelMap modelMap) {
+        List<Subject> subjects = subjectService.query(null);
+        modelMap.addAttribute("subjects", subjects);
+        return "student/add";
+    }
+
+    @PostMapping("create")
+    @ResponseBody
+    public Map<String, Object> create(@RequestBody Student student) {
+        // 设置学生的状态
+        student.setStatus(Student.StatusType.type_1);
+        int result = studentService.add(student);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
     }
 
     //查询所有
@@ -56,7 +72,6 @@ public class StudentController {
                 // 判断学生表中的clazzId和班级表的id是否一致
                 if (entity.getClazzId() == clazz.getId()) {
                     entity.setClazz(clazz);
-                    System.out.println(clazz);
                 }
             });
         });

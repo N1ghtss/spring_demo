@@ -27,6 +27,11 @@
         select * from tb_teacher
         <include refid="FindTeacher"/>
     </select>
+    <select id="count" resultType="int">
+        select count(1) from tb_teacher
+        <include refid="FindTeacher"/>
+        limit 1
+    </select>
     <!--    查询通用片段-->
     <sql id="FindTeacher">
         <where>

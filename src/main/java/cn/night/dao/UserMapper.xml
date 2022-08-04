@@ -20,7 +20,15 @@
         select * from tb_user
         <include refid="Find"/>
     </select>
-    <select id="query" resultType="cn.night.entity.User"></select>
+    <select id="query" resultMap="User">
+        select *
+        from tb_user
+    </select>
+    <select id="count" resultType="int">
+        select count(1) from tb_user
+        <include refid="Find"/>
+        limit 1
+    </select>
 
     <!-- 查询通用片段 -->
     <sql id="Find">

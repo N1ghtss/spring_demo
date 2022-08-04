@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.night.dao.NoticeDao">
+    <!-- 定义通用的resultMap-->
+    <resultMap id="Notice" type="cn.night.entity.Notice">
+        <id column="id" property="id"/>
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="author" property="author"/>
+        <result column="content" property="content"/>
+        <result column="auth" property="auth"/>
+        <result column="date" property="date"/>
+    </resultMap>
+    <!--
+        <sql id="1">用来封装SQL语句，<include refid="1">来调用
+    -->
+    <!-- 明细查询 -->
+    <select id="detail" resultMap="Notice">
+        select * from tb_notice
+        <include refid="Find"/>
+        limit 1
+    </select>
+    <select id="query" resultMap="Notice">
+        select *
+        from tb_notice
+    </select>
+    <select id="count" resultType="int">
+        select count(1) from tb_notice
+        <include refid="Find"/>
+        limit 1
+    </select>
+
+    <!-- 查询通用片段 -->
+    <sql id="Find">
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="title != null and title != '' ">and title=#{title}</if>
+            <if test="author != null and author != '' ">and author=#{author}</if>
+            <if test="content != null and content != '' ">and content=#{content}</if>
+            <if test="auth != null and auth != '' ">and auth=#{auth}</if>
+            <if test="date != null and date != '' ">and date=#{date}</if>
+
+        </where>
+    </sql>
+
+</mapper>

@@ -21,4 +21,8 @@ public class CourseService {
         }
         return courseDao.query(BeanMapUtils.beanToMap(course));
     }
+
+    public int count(Course course) {
+        return courseDao.count(BeanMapUtils.beanToMap(course));
+    }
 }

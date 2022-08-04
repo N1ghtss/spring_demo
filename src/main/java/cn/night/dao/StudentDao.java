@@ -13,4 +13,6 @@ public interface StudentDao {
     List<Student> query(Map<String, Object> map);
 
     int count(Map<String, Object> map);
+
+    int insert(Student student);
 }

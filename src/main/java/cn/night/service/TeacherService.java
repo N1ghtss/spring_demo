@@ -34,4 +34,8 @@ public class TeacherService {
         }
         return teacherDao.query(BeanMapUtils.beanToMap(teacher));
     }
+
+    public int count(Teacher teacher) {
+        return teacherDao.count(BeanMapUtils.beanToMap(teacher));
+    }
 }

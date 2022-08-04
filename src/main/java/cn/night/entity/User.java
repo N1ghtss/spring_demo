@@ -1,6 +1,8 @@
 package cn.night.entity;
 
-public class User {
+import cn.night.utils.Entity;
+
+public class User extends Entity {
     private Integer id;
     private String userName;
     private String userPwd;

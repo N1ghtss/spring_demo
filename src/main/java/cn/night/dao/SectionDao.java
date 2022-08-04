@@ -10,4 +10,6 @@ public interface SectionDao {
     Section detail(Map<String, Object> map);
 
     List<Section> query(Map<String, Object> map);
+
+    int count(Map<String, Object> map);
 }

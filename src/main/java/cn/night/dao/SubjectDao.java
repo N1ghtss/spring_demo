@@ -9,4 +9,6 @@ public interface SubjectDao {
     Subject detail(Map<String, Object> map);
 
     List<Subject> query(Map<String, Object> map);
+
+    int count(Map<String, Object> map);
 }

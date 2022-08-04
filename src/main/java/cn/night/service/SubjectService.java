@@ -20,4 +20,8 @@ public class SubjectService {
         }
         return subjectDao.query(BeanMapUtils.beanToMap(subject));
     }
+
+    public int count(Subject subject) {
+        return subjectDao.count(BeanMapUtils.beanToMap(subject));
+    }
 }

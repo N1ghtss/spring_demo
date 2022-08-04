@@ -19,13 +19,18 @@
     -->
     <!-- 明细查询 -->
     <select id="detail" resultMap="Section">
-        select * from tb_course
+        select * from tb_section
         <include refid="Find"/>
         limit 1
     </select>
     <select id="query" resultMap="Section">
         select *
-        from tb_course
+        from tb_section
+    </select>
+    <select id="count" resultType="int">
+        select count(1) from tb_section
+        <include refid="Find"/>
+        limit 1
     </select>
 
     <!-- 查询通用片段 -->

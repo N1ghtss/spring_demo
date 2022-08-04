@@ -22,4 +22,8 @@ public class SectionService {
         }
         return sectionDao.query(BeanMapUtils.beanToMap(section));
     }
+
+    public int count(Section section) {
+        return sectionDao.count(BeanMapUtils.beanToMap(section));
+    }
 }
