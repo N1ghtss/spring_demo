@@ -26,4 +26,8 @@ public class NoticeService {
     public Integer count(Notice notice) {
         return noticeDao.count(BeanMapUtils.beanToMap(notice));
     }
+
+    public int add(Notice notice) {
+        return noticeDao.insert(notice);
+    }
 }

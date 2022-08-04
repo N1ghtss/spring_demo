@@ -12,4 +12,6 @@ public interface SectionDao {
     List<Section> query(Map<String, Object> map);
 
     int count(Map<String, Object> map);
+
+    int insert(Section section);
 }

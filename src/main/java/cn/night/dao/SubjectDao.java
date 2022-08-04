@@ -11,4 +11,10 @@ public interface SubjectDao {
     List<Subject> query(Map<String, Object> map);
 
     int count(Map<String, Object> map);
+
+    int insert(Subject subject);
+
+    int delete(Subject subject);
+
+    List<Subject> like(Map<String, Object> map);
 }

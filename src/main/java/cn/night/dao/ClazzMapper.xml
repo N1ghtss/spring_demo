@@ -10,6 +10,10 @@
         <result column="subject_id" property="subjectId"/>
         <result column="remark" property="remark"/>
     </resultMap>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_clazz(clazz_name, subject_id, remark)
+        values (#{clazzName}, #{subjectId}, #{remark});
+    </insert>
 
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用

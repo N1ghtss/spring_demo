@@ -12,4 +12,6 @@ public interface CourseDao {
     List<Course> query(Map<String, Object> map);
 
     int count(Map<String, Object> map);
+
+    int insert(Course course);
 }

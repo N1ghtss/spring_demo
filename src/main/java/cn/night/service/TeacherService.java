@@ -38,4 +38,8 @@ public class TeacherService {
     public int count(Teacher teacher) {
         return teacherDao.count(BeanMapUtils.beanToMap(teacher));
     }
+
+    public int add(Teacher teacher) {
+        return teacherDao.insert(teacher);
+    }
 }

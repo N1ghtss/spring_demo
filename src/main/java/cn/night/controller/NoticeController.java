@@ -8,10 +8,7 @@ import cn.night.utils.MapControl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.util.List;
@@ -39,5 +36,15 @@ public class NoticeController {
         List<Notice> noticeList = noticeService.query(notice);
         Integer count = noticeService.count(notice);
         return MapControl.getInstance().success().page(noticeList, count).getMap();
+    }
+
+    @PostMapping("create")
+    @ResponseBody
+    public Map<String, Object> create(@RequestBody Notice notice) {
+        int result = noticeService.add(notice);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
     }
 }

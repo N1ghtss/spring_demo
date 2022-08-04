@@ -25,4 +25,8 @@ public class CourseService {
     public int count(Course course) {
         return courseDao.count(BeanMapUtils.beanToMap(course));
     }
+
+    public int add(Course course) {
+        return courseDao.insert(course);
+    }
 }

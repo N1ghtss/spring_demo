@@ -36,4 +36,8 @@ public class UserService {
     public int count(User user) {
         return userDao.count(BeanMapUtils.beanToMap(user));
     }
+
+    public int add(User user) {
+        return userDao.insert(user);
+    }
 }

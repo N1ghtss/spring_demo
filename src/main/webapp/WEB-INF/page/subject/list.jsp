@@ -114,7 +114,7 @@
                     shade: 0.2,
                     shadeClose: false,
                     area: ['50%', '50%'],
-                    content: '${basePath}subject/detail/'+data[0].id, //把用户选中的行的id作为参数传递给后端控制器
+                    content: '${basePath}subject/detail/' + data[0].id, //把用户选中的行的id作为参数传递给后端控制器
                     end: function () {
                         table.reload('currentTableId');
                     }

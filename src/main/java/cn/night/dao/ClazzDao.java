@@ -12,4 +12,6 @@ public interface ClazzDao {
 
     int count(Map<String, Object> map);
 
+    int insert(Clazz clazz);
+
 }

@@ -26,4 +26,8 @@ public class SectionService {
     public int count(Section section) {
         return sectionDao.count(BeanMapUtils.beanToMap(section));
     }
+
+    public int add(Section section) {
+        return sectionDao.insert(section);
+    }
 }

@@ -10,6 +10,15 @@
         <result column="college" property="college"/>
         <result column="remark" property="remark"/>
     </resultMap>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_subject(subject_name, college, remark)
+        values (#{subjectName}, #{college}, #{remark});
+    </insert>
+    <delete id="delete">
+        delete
+        from tb_subject
+        where id = #{id};
+    </delete>
 
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
@@ -29,6 +38,11 @@
         <include refid="Find"/>
         limit 1
     </select>
+    <select id="like" resultMap="Subject">
+        select *
+        from tb_subject
+        <include refid="like"/>
+    </select>
 
     <!-- 查询通用片段 -->
     <sql id="Find">
@@ -37,7 +51,13 @@
             <if test="subjectName != null and subjectName != '' ">and subject_name=#{subjectName}</if>
             <if test="college != null and college != '' ">and college=#{college}</if>
             <if test="remark != null and remark != '' ">and remark=#{remark}</if>
-
+        </where>
+    </sql>
+    <sql id="like">
+        <where>
+            <if test="subjectName != null and subjectName != '' ">and subject_name like concat('%',#{subjectName},'%')
+            </if>
+            <if test="college != null and college != '' ">and college like concat('%',#{college},'%')</if>
         </where>
     </sql>
 

@@ -9,10 +9,7 @@ import cn.night.service.TeacherService;
 import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -53,5 +50,15 @@ public class SectionController {
 
         Integer count = sectionService.count(section);
         return MapControl.getInstance().success().page(sectionList, count).getMap();
+    }
+
+    @PostMapping("create")
+    @ResponseBody
+    public Map<String, Object> create(@RequestBody Section section) {
+        int result = sectionService.add(section);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
     }
 }

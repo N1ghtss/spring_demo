@@ -11,6 +11,10 @@
         <result column="name" property="name"/>
         <result column="remark" property="remark"/>
     </resultMap>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_user(user_name, user_pwd, name, remark)
+        values (#{userName}, #{userPwd}, #{name}, #{remark});
+    </insert>
 
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用

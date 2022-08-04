@@ -13,4 +13,6 @@ public interface TeacherDao {
     List<Teacher> query(Map<String, Object> map);
 
     int count(Map<String, Object> map);
+
+    int insert(Teacher teacher);
 }

@@ -24,4 +24,17 @@ public class SubjectService {
     public int count(Subject subject) {
         return subjectDao.count(BeanMapUtils.beanToMap(subject));
     }
+
+    public int add(Subject subject) {
+        return subjectDao.insert(subject);
+    }
+
+    public int delete(Subject subject) {
+        return subjectDao.delete(subject);
+    }
+
+    public List<Subject> like(Subject subject) {
+        PageHelper.startPage(subject.getPage(), subject.getLimit());
+        return subjectDao.like(BeanMapUtils.beanToMap(subject));
+    }
 }

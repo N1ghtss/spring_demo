@@ -12,6 +12,10 @@
         <result column="auth" property="auth"/>
         <result column="date" property="date"/>
     </resultMap>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_notice(title, author, content, auth, date)
+        values (#{title}, #{author}, #{content}, #{auth}, #{date});
+    </insert>
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
     -->

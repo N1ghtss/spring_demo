@@ -6,10 +6,7 @@ import cn.night.service.UserService;
 import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -36,5 +33,15 @@ public class UserController {
         List<User> users = userService.query(user);
         Integer count = userService.count(user);
         return MapControl.getInstance().success().page(users, count).getMap();
+    }
+
+    @PostMapping("create")
+    @ResponseBody
+    public Map<String, Object> create(@RequestBody User user) {
+        int result = userService.add(user);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
     }
 }

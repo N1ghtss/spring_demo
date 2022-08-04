@@ -25,4 +25,8 @@ public class ClazzService {
     public Integer count(Clazz clazz) {
         return clazzDao.count(BeanMapUtils.beanToMap(clazz));
     }
+
+    public int add(Clazz clazz) {
+        return clazzDao.insert(clazz);
+    }
 }

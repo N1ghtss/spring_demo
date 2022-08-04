@@ -8,6 +8,7 @@ public class Subject extends Entity {
     private String college;
     private String remark;
 
+
     @Override
     public String toString() {
         return "Subject{" +

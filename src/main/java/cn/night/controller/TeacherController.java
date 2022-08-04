@@ -19,7 +19,6 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
-
     @GetMapping("list")
     public String list() {
         return "teacher/list";
@@ -36,6 +35,15 @@ public class TeacherController {
         List<Teacher> teacherList = teacherService.query(teacher);
         Integer count = teacherService.count(teacher);
         return MapControl.getInstance().success().put("data", teacherList).put("count", count).getMap();
+    }
 
+    @PostMapping("create")
+    @ResponseBody
+    public Map<String, Object> create(Teacher teacher) {
+        int result = teacherService.add(teacher);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
     }
 }

@@ -9,6 +9,10 @@
         <result column="course_name" property="courseName"/>
         <result column="remark" property="remark"/>
     </resultMap>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_course(course_name, remark)
+        values (#{courseName}, #{remark});
+    </insert>
 
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
@@ -21,6 +25,7 @@
     </select>
     <select id="query" resultMap="Course">
         select *
+        <include refid="Find"/>
         from tb_course
     </select>
     <select id="count" resultType="int">
@@ -35,7 +40,6 @@
             <if test="id != null">and id=#{id}</if>
             <if test="courseName != null and courseName != '' ">and course_name=#{courseName}</if>
             <if test="remark != null and remark != '' ">and remark=#{remark}</if>
-
         </where>
     </sql>
 

@@ -12,7 +12,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">标题</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="required" class="layui-input" height="300px" >
+                    <input type="text" name="title" lay-verify="required" class="layui-input" height="300px">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -25,7 +25,8 @@
             <div class="layui-form-item layui-col-xs9 ">
                 <label class="layui-form-label">公告内容</label>
                 <div class="layui-input-block">
-                    <textarea type="text" name="content" lay-verify="required" class="layui-input" style="width: 300px; height: 100px;">     </textarea>   </div>
+                    <textarea type="text" name="content" lay-verify="required" class="layui-input"
+                              style="width: 300px; height: 100px;">     </textarea></div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
@@ -45,7 +46,7 @@
 <script src="${basePath}static/lib/layui-src/layui.js" charset="utf-8"></script>
 <script src="${basePath}static/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <script>
-    layui.use(['form','jquery'], function () {
+    layui.use(['form', 'jquery'], function () {
         var form = layui.form,
             $ = layui.jquery;
 
@@ -56,10 +57,11 @@
             $.ajax({
                 url: "${basePath}notice/create",
                 type: "POST",
+                contentType: 'application/json',
+                data: JSON.stringify(data.field),
                 dataType: 'json', //客户端所接收的数据格式
-                data: data.field,
-                success:function(data) {
-                    layer.msg(data.msg,{time:500}, function() {
+                success: function (data) {
+                    layer.msg(data.msg, {time: 500}, function () {
                         parent.layer.close(index);
                     });
                 }

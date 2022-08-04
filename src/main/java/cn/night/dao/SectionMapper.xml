@@ -13,6 +13,10 @@
         <result column="course_id" property="courseId"/>
         <result column="remark" property="remark"/>
     </resultMap>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_section(year, type, clazz_id, teacher_id, course_id, remark)
+        values (#{year}, #{type}, #{clazzId}, #{teacherId}, #{courseId}, #{remark});
+    </insert>
 
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用

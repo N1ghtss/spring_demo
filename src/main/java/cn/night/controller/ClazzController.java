@@ -8,10 +8,7 @@ import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +29,7 @@ public class ClazzController {
     @GetMapping("add")
     public String add(ModelMap modelMap) {
         List<Subject> subjects = subjectService.query(null);
-        modelMap.addAttribute("subject", subjects);
+        modelMap.addAttribute("subjects", subjects);
         return "clazz/add";
     }
 
@@ -51,5 +48,15 @@ public class ClazzController {
         Integer count = clazzService.count(clazz);
 //        return MapControl.getInstance().success().put("data", clazzList).put("count", count).getMap();
         return MapControl.getInstance().success().page(clazzList, count).getMap();
+    }
+
+    @PostMapping("create")
+    @ResponseBody
+    public Map<String, Object> create(@RequestBody Clazz clazz) {
+        int result = clazzService.add(clazz);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
     }
 }

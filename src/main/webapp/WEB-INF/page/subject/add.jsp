@@ -56,8 +56,10 @@
             $.ajax({
                 url: "${basePath}subject/create",
                 type: "POST",
+                // data: JSON.stringify($("#projectSalaryForm").serialize()),
+                contentType: "application/json",
                 dataType: 'json', //客户端所接收的数据格式
-                data: data.field,
+                data: JSON.stringify(data.field),
                 success: function (data) {
                     layer.msg(data.msg, {time: 500}, function () {
                         parent.layer.close(index);

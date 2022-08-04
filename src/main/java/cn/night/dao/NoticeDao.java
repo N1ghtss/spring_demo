@@ -12,4 +12,6 @@ public interface NoticeDao {
     List<Notice> query(Map<String, Object> map);
 
     int count(Map<String, Object> map);
+
+    int insert(Notice notice);
 }

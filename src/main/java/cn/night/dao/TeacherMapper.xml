@@ -12,6 +12,10 @@
         <result column="name" property="name"/>
         <result column="remark" property="remark"/>
     </resultMap>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_teacher(teacher_name, teacher_pwd, name, remark)
+        values (#{teacherName}, #{teacherPwd}, #{name}, #{remark});
+    </insert>
     <!--
             <sql>用来封装sql语句，<include>来调用的
             如果refid="userList"，则一定要定义唯一id在<sql>标签中
