@@ -35,7 +35,7 @@
     </select>
     <select id="count" resultType="int">
         select count(1) from tb_subject
-        <include refid="Find"/>
+        <include refid="like"/>
         limit 1
     </select>
     <select id="like" resultMap="Subject">
@@ -55,9 +55,11 @@
     </sql>
     <sql id="like">
         <where>
+            <if test="id != null">and id like concat('%',#{id},'%')</if>
             <if test="subjectName != null and subjectName != '' ">and subject_name like concat('%',#{subjectName},'%')
             </if>
             <if test="college != null and college != '' ">and college like concat('%',#{college},'%')</if>
+            <if test="remark != null and remark != '' ">and remark concat('%',#{remark},'%')</if>
         </where>
     </sql>
 

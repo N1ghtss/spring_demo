@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("clazz")
@@ -35,8 +36,13 @@ public class ClazzController {
 
     @PostMapping("query")
     @ResponseBody
-    public Map<String, Object> query(Clazz clazz) {
-        List<Clazz> clazzList = clazzService.query(clazz);
+    public Map<String, Object> query(@RequestBody Clazz clazz) {
+        List<Clazz> clazzList = null;
+        if (!Objects.equals(clazz.getClazzName(), "")) {
+            clazzList = clazzService.like(clazz);
+        } else {
+            clazzList = clazzService.query(clazz);
+        }
         List<Subject> subjects = subjectService.query(null);
         clazzList.forEach(clazz1 -> {
             subjects.forEach(subject -> {
@@ -49,6 +55,13 @@ public class ClazzController {
 //        return MapControl.getInstance().success().put("data", clazzList).put("count", count).getMap();
         return MapControl.getInstance().success().page(clazzList, count).getMap();
     }
+//    clazzList.forEach(clazz1 -> {
+//        subjects.forEach(subject -> {
+//            if (clazz1.getSubjectId() == subject.getId()) {
+//                clazz1.setSubject(subject);
+//            }
+//        });
+//    });
 
     @PostMapping("create")
     @ResponseBody

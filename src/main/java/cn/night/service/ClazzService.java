@@ -29,4 +29,9 @@ public class ClazzService {
     public int add(Clazz clazz) {
         return clazzDao.insert(clazz);
     }
+
+    public List<Clazz> like(Clazz clazz) {
+        PageHelper.startPage(clazz.getPage(), clazz.getLimit());
+        return clazzDao.like(BeanMapUtils.beanToMap(clazz));
+    }
 }

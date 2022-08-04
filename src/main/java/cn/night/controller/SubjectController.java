@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("subject")
@@ -29,15 +30,15 @@ public class SubjectController {
     @PostMapping("query")
     @ResponseBody
     public Map<String, Object> query(@RequestBody Subject subject) {
-        if (subject.getSubjectName() == "" && subject.getCollege() == "") {
-            List<Subject> subjectList = subjectService.query(subject);
-            Integer count = subjectService.count(subject);
+        List<Subject> subjectList;
+        if (Objects.equals(subject.getSubjectName(), "") && Objects.equals(subject.getCollege(), "")) {
+            subjectList = subjectService.query(subject);
 //        return MapControl.getInstance().success().put("data", clazzList).put("count", count).getMap();
-            return MapControl.getInstance().success().page(subjectList, count).getMap();
+        } else {
+            subjectList = subjectService.like(subject);
         }
-        List<Subject> subjectList = subjectService.like(subject);
         Integer count = subjectService.count(subject);
-        return MapControl.getInstance().success().put("data", subjectList).put("count", count).getMap();
+        return MapControl.getInstance().success().page(subjectList, count).getMap();
     }
 
 
