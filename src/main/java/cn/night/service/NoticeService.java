@@ -47,7 +47,8 @@ public class NoticeService {
     public int delete(String ids) {
         int count = 0;
         for (String str : ids.split(",")) {
-            count = noticeDao.delete(MapParameter.getInstance().addId(Integer.parseInt(str)).getMap());
+            count = noticeDao.delete(MapParameter.getInstance().
+                    addId(Integer.parseInt(str)).getMap());
         }
         return count;
 

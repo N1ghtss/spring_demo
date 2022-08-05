@@ -31,6 +31,11 @@ public class StudentController {
         return "student/list";
     }
 
+    @GetMapping("teacher_student")
+    public String teacher_student() {
+        return "student/teacher_student";
+    }
+
     @GetMapping("add")
     public String add(ModelMap modelMap) {
         List<Subject> subjects = subjectService.query(null);
@@ -58,7 +63,6 @@ public class StudentController {
         // 将查询出来的数据储存到request域，实现表单回写
         modelMap.addAttribute("student", student);
         modelMap.addAttribute("subjects", subjects);
-//        modelMap.addAttribute("clazzes", clazzes);
         return "student/update";
     }
 

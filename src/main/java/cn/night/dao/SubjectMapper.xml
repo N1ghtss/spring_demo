@@ -22,7 +22,7 @@
     <delete id="delete">
         delete
         from tb_subject
-        where id = #{id};
+        <include refid="Find"></include>
     </delete>
 
     <!--

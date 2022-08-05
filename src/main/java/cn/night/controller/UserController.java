@@ -5,6 +5,7 @@ import cn.night.service.UserService;
 import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,33 @@ public class UserController {
     @GetMapping("add")
     public String add() {
         return "user/add";
+    }
+
+    @GetMapping("detail/{id}")
+    public String detail(@PathVariable("id") Integer id, ModelMap modelMap) {
+        User user = userService.detail(id);
+        modelMap.addAttribute("user", user);
+        return "user/update";
+    }
+
+    @PostMapping("delete")
+    @ResponseBody
+    public Map<String, Object> delete(String ids) {
+        int result = userService.delete(ids);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
+    @PostMapping("update")
+    @ResponseBody
+    public Map<String, Object> update(@RequestBody User user) {
+        int result = userService.update(user);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
     }
 
     @PostMapping("query")
@@ -49,4 +77,5 @@ public class UserController {
         }
         return MapControl.getInstance().success().getMap();
     }
+
 }

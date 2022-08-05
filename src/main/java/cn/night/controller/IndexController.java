@@ -11,7 +11,8 @@ import java.util.*;
 
 @Controller
 public class IndexController {
-    private final TeacherService teacherService;
+    @Autowired
+    private TeacherService teacherService;
     @Autowired
     private StudentService studentService;
     @Autowired
@@ -22,10 +23,7 @@ public class IndexController {
     private CourseService courseService;
     @Autowired
     private SectionService sectionService;
-
-    public IndexController(TeacherService teacherService) {
-        this.teacherService = teacherService;
-    }
+    
 
     // 跳转系统主页
     @GetMapping("/index")

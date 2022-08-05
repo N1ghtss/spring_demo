@@ -15,4 +15,8 @@ public interface ClazzDao {
     int insert(Clazz clazz);
 
     List<Clazz> like(Map<String, Object> map);
+
+    int update(Map<String, Object> map);
+
+    int delete(Map<String, Object> map);
 }

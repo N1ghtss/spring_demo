@@ -16,6 +16,15 @@
         insert into tb_teacher(teacher_name, teacher_pwd, name, remark)
         values (#{teacherName}, #{teacherPwd}, #{name}, #{remark});
     </insert>
+    <update id="update">
+        update tb_teacher
+        <include refid="update"></include>
+        <include refid="FindTeacher"></include>
+    </update>
+    <delete id="delete">
+        delete from tb_teacher
+        <include refid="FindTeacher"></include>
+    </delete>
     <!--
             <sql>用来封装sql语句，<include>来调用的
             如果refid="userList"，则一定要定义唯一id在<sql>标签中
@@ -57,5 +66,12 @@
                 and name like concat('%', #{name}, '%')
             </if>
         </where>
+    </sql>
+    <sql id="update">
+        <set>
+            <if test="updateTeacherName !=null and updateTeacherName!=''">teacher_name=#{updateTeacherName},</if>
+            <if test="updateName !=null and updateName!=''">name=#{updateName},</if>
+            <if test="updateRemark !=null and updateRemark!=''">remark=#{updateRemark}</if>
+        </set>
     </sql>
 </mapper>

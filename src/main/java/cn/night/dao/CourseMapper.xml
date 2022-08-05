@@ -13,6 +13,15 @@
         insert into tb_course(course_name, remark)
         values (#{courseName}, #{remark});
     </insert>
+    <update id="update">
+        update tb_course
+        <include refid="update"></include>
+        <include refid="Find"></include>
+    </update>
+    <delete id="delete">
+        delete from tb_course
+        <include refid="Find"></include>
+    </delete>
 
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
@@ -54,6 +63,12 @@
             </if>
             <if test="remark != null and remark != '' ">and remark like concat('%',#{remark},'%')</if>
         </where>
+    </sql>
+    <sql id="update">
+        <set>
+            <if test="updateCourseName != null and updateCourseName != '' ">course_name=#{updateCourseName},</if>
+            <if test="updateRemark != null and updateRemark != '' ">remark=#{updateRemark}</if>
+        </set>
     </sql>
 
 </mapper>

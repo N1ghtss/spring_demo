@@ -17,4 +17,8 @@ public interface TeacherDao {
     int insert(Teacher teacher);
 
     List<Teacher> like(Map<String, Object> map);
+
+    int update(Map<String, Object> map);
+
+    int delete(Map<String, Object> map);
 }

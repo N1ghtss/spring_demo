@@ -14,7 +14,15 @@
         insert into tb_clazz(clazz_name, subject_id, remark)
         values (#{clazzName}, #{subjectId}, #{remark});
     </insert>
-
+    <update id="update">
+        update tb_clazz
+        <include refid="update"></include>
+        <include refid="Find"></include>
+    </update>
+    <delete id="delete">
+        delete from tb_clazz
+        <include refid="Find"></include>
+    </delete>
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
     -->
@@ -55,8 +63,14 @@
             <if test="clazzName != null and clazzName != '' ">and clazz_name like concat('%',#{clazzName},'%')</if>
             <if test="subjectId != null and subjectId != '' ">and subject_id like concat('%',#{subjectId},'%')</if>
             <if test="remark != null and remark != '' ">and remark like concat('%',#{remark},'%')</if>
-
         </where>
+    </sql>
+    <sql id="update">
+        <set>
+            <if test="updateClazzName != null and updateClazzName != '' ">clazz_name=#{updateClazzName},</if>
+            <if test="updateSubjectId != null and updateSubjectId != '' ">subject_id=#{updateSubjectId},</if>
+            <if test="updateRemark != null and updateRemark != '' ">remark=#{updateRemark}</if>
+        </set>
     </sql>
 
 </mapper>

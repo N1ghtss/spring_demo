@@ -14,4 +14,8 @@ public interface SectionDao {
     int count(Map<String, Object> map);
 
     int insert(Section section);
+
+    int update(Map<String, Object> map);
+
+    int delete(Map<String, Object> map);
 }

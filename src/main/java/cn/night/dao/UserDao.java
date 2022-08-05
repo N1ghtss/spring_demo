@@ -17,4 +17,8 @@ public interface UserDao {
     int insert(User user);
 
     List<User> queryByName(Map<String, Object> map);
+
+    int update(Map<String, Object> map);
+
+    int delete(Map<String, Object> map);
 }

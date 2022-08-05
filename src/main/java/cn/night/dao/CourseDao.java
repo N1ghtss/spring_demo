@@ -16,4 +16,8 @@ public interface CourseDao {
     int insert(Course course);
 
     List<Course> like(Map<String, Object> map);
+
+    int update(Map<String, Object> map);
+
+    int delete(Map<String, Object> map);
 }

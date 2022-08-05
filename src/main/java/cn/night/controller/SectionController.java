@@ -5,6 +5,7 @@ import cn.night.service.*;
 import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -28,14 +29,59 @@ public class SectionController {
         return "section/list";
     }
 
+    @GetMapping("teacher_section")
+    public String teacher_section() {
+        return "section/teacher_section";
+    }
+
+    
+    @GetMapping("add")
+    public String add(Integer clazzId, ModelMap modelMap) {
+        List<Teacher> teachers = teacherService.query(null);
+        List<Course> courses = courseService.query(null);
+        modelMap.addAttribute("clazzId", clazzId);
+        modelMap.addAttribute("teachers", teachers);
+        modelMap.addAttribute("courses", courses);
+        return "section/add";
+    }
+
+    @GetMapping("detail/{id}")
+    public String detail(@PathVariable Integer id, ModelMap modelMap) {
+        Section section = sectionService.detail(id);
+        List<Teacher> teachers = teacherService.query(null);
+        List<Course> courses = courseService.query(null);
+        modelMap.addAttribute("section", section);
+        modelMap.addAttribute("teachers", teachers);
+        modelMap.addAttribute("courses", courses);
+        return "section/update";
+    }
+
+    @PostMapping("update")
+    @ResponseBody
+    public Map<String, Object> update(@RequestBody Section section) {
+        int result = sectionService.update(section);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
+    @PostMapping("delete")
+    @ResponseBody
+    public Map<String, Object> delete(String ids) {
+        int result = sectionService.delete(ids);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+
+    }
+
+
     @PostMapping("query")
     @ResponseBody
     public Map<String, Object> query(@RequestBody Section section) {
-        List<Section> sectionList;
-        if (!Objects.equals(section.getClazzId(), null)) {
-            sectionList = sectionService.queryById(section);
-        }
-        sectionList = sectionService.query(section);
+        List<Section> sectionList = sectionService.query(section);
         List<Teacher> teachers = teacherService.query(null);
         List<Course> courses = courseService.query(null);
         sectionList.forEach(section1 -> {

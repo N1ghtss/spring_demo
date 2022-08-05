@@ -34,6 +34,36 @@ public class ClazzController {
         return "clazz/add";
     }
 
+    @GetMapping("detail/{id}")
+    public String detail(@PathVariable("id") Integer id, ModelMap modelMap) {
+        Clazz clazz = clazzService.detail(id);
+        List<Subject> subjects = subjectService.query(null);
+        modelMap.addAttribute("subjects", subjects);
+        modelMap.addAttribute("clazz", clazz);
+        return "clazz/update";
+
+    }
+
+    @PostMapping("update")
+    @ResponseBody
+    public Map<String, Object> update(@RequestBody Clazz clazz) {
+        int result = clazzService.update(clazz);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
+    @PostMapping("delete")
+    @ResponseBody
+    public Map<String, Object> delete(String ids) {
+        int result = clazzService.delete(ids);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
     @PostMapping("query")
     @ResponseBody
     public Map<String, Object> query(@RequestBody Clazz clazz) {
@@ -55,13 +85,7 @@ public class ClazzController {
 //        return MapControl.getInstance().success().put("data", clazzList).put("count", count).getMap();
         return MapControl.getInstance().success().page(clazzList, count).getMap();
     }
-//    clazzList.forEach(clazz1 -> {
-//        subjects.forEach(subject -> {
-//            if (clazz1.getSubjectId() == subject.getId()) {
-//                clazz1.setSubject(subject);
-//            }
-//        });
-//    });
+
 
     @PostMapping("create")
     @ResponseBody

@@ -36,6 +36,7 @@ public class SubjectService {
         for (String str : ids.split(",")) {
             count = subjectDao.delete(MapParameter.getInstance().addId(Integer.parseInt(str)).getMap());
         }
+        return count;
     }
 
     public List<Subject> like(Subject subject) {

@@ -5,6 +5,7 @@ import cn.night.service.TeacherService;
 import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,33 @@ public class TeacherController {
     @GetMapping("add")
     public String add() {
         return "teacher/add";
+    }
+
+    @GetMapping("detail/{id}")
+    public String detail(@PathVariable("id") Integer id, ModelMap modelMap) {
+        Teacher teacher = teacherService.detail(id);
+        modelMap.addAttribute("teacher", teacher);
+        return "teacher/update";
+    }
+
+    @PostMapping("update")
+    @ResponseBody
+    public Map<String, Object> update(@RequestBody Teacher teacher) {
+        int result = teacherService.update(teacher);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
+    @PostMapping("delete")
+    @ResponseBody
+    public Map<String, Object> delete(String ids) {
+        int result = teacherService.delete(ids);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
     }
 
     @PostMapping("query")

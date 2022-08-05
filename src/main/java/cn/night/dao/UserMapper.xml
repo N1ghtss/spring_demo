@@ -15,7 +15,15 @@
         insert into tb_user(user_name, user_pwd, name, remark)
         values (#{userName}, #{userPwd}, #{name}, #{remark});
     </insert>
-
+    <update id="update">
+        update tb_user
+        <include refid="update"></include>
+        <include refid="Find"></include>
+    </update>
+    <delete id="delete">
+        delete from tb_user
+        <include refid="Find"></include>
+    </delete>
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
     -->
@@ -47,7 +55,6 @@
             <if test="userPwd != null and userPwd != '' ">and user_pwd=#{userPwd}</if>
             <if test="name != null and name != '' ">and name=#{name}</if>
             <if test="remark != null and remark != '' ">and remark=#{remark}</if>
-
         </where>
     </sql>
     <sql id="queryByName">
@@ -59,6 +66,14 @@
                 and name like concat('%', #{name}, '%')
             </if>
         </where>
+    </sql>
+    <sql id="update">
+        <set>
+            <if test="updateUserName != null and updateUserName != '' ">user_name=#{updateUserName},</if>
+            <if test="updateUserPwd != null and updateUserPwd != '' ">user_pwd=#{updateUserPwd},</if>
+            <if test="updateName != null and updateName != '' ">name=#{updateName},</if>
+            <if test="updateRemark != null and updateRemark != '' ">remark=#{updateRemark}</if>
+        </set>
     </sql>
 
 </mapper>

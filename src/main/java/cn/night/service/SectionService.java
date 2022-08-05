@@ -5,11 +5,13 @@ import cn.night.dao.SectionDao;
 import cn.night.entity.Clazz;
 import cn.night.entity.Section;
 import cn.night.utils.BeanMapUtils;
+import cn.night.utils.MapParameter;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SectionService {
@@ -35,5 +37,25 @@ public class SectionService {
         PageHelper.startPage(section.getPage(), section.getLimit());
         return sectionDao.query(BeanMapUtils.beanToMap(section));
 
+    }
+
+    public Section detail(Integer id) {
+        Map<String, Object> map = MapParameter.getInstance().
+                addId(id).getMap();
+        return sectionDao.detail(map);
+    }
+
+    public int update(Section section) {
+        return sectionDao.update(MapParameter.getInstance().
+                add(BeanMapUtils.beanToMapForUpdate(section)).
+                addId(section.getId()).getMap());
+    }
+
+    public int delete(String ids) {
+        int count = 0;
+        for (String str : ids.split(",")) {
+            count = sectionDao.delete(MapParameter.getInstance().addId(str).getMap());
+        }
+        return count;
     }
 }

@@ -17,6 +17,15 @@
         insert into tb_section(year, type, clazz_id, teacher_id, course_id, remark)
         values (#{year}, #{type}, #{clazzId}, #{teacherId}, #{courseId}, #{remark});
     </insert>
+    <update id="update">
+        update tb_section
+        <include refid="update"></include>
+        <include refid="Find"></include>
+    </update>
+    <delete id="delete">
+        delete from tb_section
+        <include refid="Find"></include>
+    </delete>
 
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
@@ -48,8 +57,17 @@
             <if test="teacherId != null and teacherId != '' ">and teacher_id=#{teacherId}</if>
             <if test="courseId != null and courseId != '' ">and course_id=#{courseId}</if>
             <if test="remark != null and remark != '' ">and remark=#{remark}</if>
-
         </where>
+    </sql>
+    <sql id="update">
+        <set>
+            <if test="updateYear != null and updateYear != '' ">year=#{updateYear},</if>
+            <if test="updateType != null and updateType != '' ">type=#{updateType},</if>
+            <if test="updateClazzId != null and updateClazzId != '' ">clazz_id=#{updateClazzId},</if>
+            <if test="updateTeacherId != null and updateTeacherId != '' ">teacher_id=#{updateTeacherId},</if>
+            <if test="updateCourseId != null and updateCourseId != '' ">course_id=#{updateCourseId},</if>
+            <if test="updateRemark != null and updateRemark != '' ">remark=#{updateRemark}</if>
+        </set>
     </sql>
 
 </mapper>

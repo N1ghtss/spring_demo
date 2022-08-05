@@ -49,4 +49,23 @@ public class TeacherService {
         PageHelper.startPage(teacher.getPage(), teacher.getLimit());
         return teacherDao.like(BeanMapUtils.beanToMap(teacher));
     }
+
+    public Teacher detail(Integer id) {
+        return teacherDao.detail(MapParameter.getInstance().addId(id).getMap());
+    }
+
+    public int update(Teacher teacher) {
+        Map<String, Object> map = MapParameter.getInstance().
+                add(BeanMapUtils.beanToMapForUpdate(teacher)).
+                addId(teacher.getId()).getMap();
+        return teacherDao.update(map);
+    }
+
+    public int delete(String ids) {
+        int count = 0;
+        for (String str : ids.split(",")) {
+            count = teacherDao.delete(MapParameter.getInstance().addId(Integer.parseInt(str)).getMap());
+        }
+        return count;
+    }
 }
