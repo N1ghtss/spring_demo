@@ -11,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +44,10 @@ public class NoticeController {
 
     @PostMapping("create")
     @ResponseBody
-    public Map<String, Object> create(@RequestBody Notice notice) {
+    public Map<String, Object> create(Notice notice) {
+        Date date = new Date();
+        date.setTime(System.currentTimeMillis());
+        notice.setDate(date);
         int result = noticeService.add(notice);
         if (result <= 0) {
             return MapControl.getInstance().error().getMap();

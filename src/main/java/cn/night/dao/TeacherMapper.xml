@@ -33,8 +33,13 @@
     </select>
     <select id="count" resultType="int">
         select count(1) from tb_teacher
-        <include refid="FindTeacher"/>
+        <include refid="like"/>
         limit 1
+    </select>
+    <select id="like" resultMap="Teacher">
+        select *
+        from tb_teacher
+        <include refid="like"></include>
     </select>
     <!--    查询通用片段-->
     <sql id="FindTeacher">
@@ -44,6 +49,13 @@
             <if test="teacherPwd !=null and teacherPwd!=''">and teacher_pwd=#{teacherPwd}</if>
             <if test="name !=null and name!=''">and name=#{name}</if>
             <if test="remark !=null and remark!=''">and remark=#{remark}</if>
+        </where>
+    </sql>
+    <sql id="like">
+        <where>
+            <if test="teacherName != null">
+                and name like concat('%', #{teacherName}, '%')
+            </if>
         </where>
     </sql>
 </mapper>

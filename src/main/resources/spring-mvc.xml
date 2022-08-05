@@ -15,9 +15,31 @@
 
     <!-- 包扫描 -->
     <context:component-scan base-package="cn.night.controller"/>
+    <!-- 配置自定义的日期格式转换器 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="cn.night.utils.DateConverter"></bean>
+            </set>
+        </property>
+    </bean>
     <!-- 开启springmvc对注解的支持 -->
-    <mvc:annotation-driven>
-
+    <mvc:annotation-driven conversion-service="conversionService">
+        <!-- 消息转换器 -->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <!-- 这里只会对json数据中的日期格式化 -->
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yy-MM-dd HH:mm:ss"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
     </mvc:annotation-driven>
     <!-- 静态资源过滤 -->
     <mvc:default-servlet-handler/>

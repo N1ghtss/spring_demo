@@ -1,6 +1,7 @@
 package cn.night.entity;
 
 import cn.night.utils.Entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
@@ -64,6 +65,7 @@ public class Notice extends Entity {
         this.content = content;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getDate() {
         return date;
     }

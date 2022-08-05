@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("student")
@@ -37,6 +38,30 @@ public class StudentController {
         return "student/add";
     }
 
+    @GetMapping("detail/{id}")
+    public String detail(@PathVariable("id") Integer id, ModelMap modelMap) {
+        // 查询出要修改的学生信息
+        Student student = studentService.detail(id);
+        // 查询所有的专业
+        List<Subject> subjects = subjectService.query(null);
+        List<Clazz> clazzes = clazzService.query(null);
+        // 将查询出来的数据储存到request域，实现表单回写
+        modelMap.addAttribute("student", student);
+        modelMap.addAttribute("subjects", subjects);
+//        modelMap.addAttribute("clazzes", clazzes);
+        return "student/update";
+    }
+
+    @PostMapping("update")
+    @ResponseBody
+    public Map<String, Object> update(@RequestBody Student student) {
+        int result = studentService.update(student);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
     @PostMapping("create")
     @ResponseBody
     public Map<String, Object> create(@RequestBody Student student) {
@@ -52,9 +77,14 @@ public class StudentController {
     //查询所有
     @PostMapping("query")
     @ResponseBody
-    public Map<String, Object> query(Student student) {
-        // 查询所有学生信息
-        List<Student> list = studentService.query(student);
+    public Map<String, Object> query(@RequestBody Student student) {
+        List<Student> list;
+        if (!Objects.equals(student.getStuName(), "")) {
+            list = studentService.like(student);
+        } else {
+            // 查询所有学生信息
+            list = studentService.query(student);
+        }
         // 查询所有专业
         List<Subject> subjects = subjectService.query(null);
         // 查询所有班级

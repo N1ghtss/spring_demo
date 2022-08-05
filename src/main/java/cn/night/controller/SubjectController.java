@@ -44,7 +44,7 @@ public class SubjectController {
 
     @PostMapping("create")
     @ResponseBody
-    public Map<String, Object> create(@RequestBody Subject subject) {
+    public Map<String, Object> create(Subject subject) {
         int result = subjectService.add(subject);
         if (result <= 0) {
             return MapControl.getInstance().error().getMap();

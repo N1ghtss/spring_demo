@@ -5,6 +5,7 @@ import cn.night.dao.UserDao;
 import cn.night.entity.Teacher;
 import cn.night.entity.User;
 import cn.night.utils.BeanMapUtils;
+import cn.night.utils.MD5Utils;
 import cn.night.utils.MapParameter;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -40,6 +41,12 @@ public class TeacherService {
     }
 
     public int add(Teacher teacher) {
+        teacher.setTeacherPwd(MD5Utils.getMD5(teacher.getTeacherPwd()));
         return teacherDao.insert(teacher);
+    }
+
+    public List<Teacher> like(Teacher teacher) {
+        PageHelper.startPage(teacher.getPage(), teacher.getLimit());
+        return teacherDao.like(BeanMapUtils.beanToMap(teacher));
     }
 }

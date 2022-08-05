@@ -15,4 +15,8 @@ public interface StudentDao {
     int count(Map<String, Object> map);
 
     int insert(Student student);
+
+    List<Student> like(Map<String, Object> beanToMap);
+
+    int update(Map<String, Object> map);
 }

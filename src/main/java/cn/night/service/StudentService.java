@@ -40,4 +40,20 @@ public class StudentService {
         student.setStuPwd(MD5Utils.getMD5(student.getStuPwd()));
         return studentDao.insert(student);
     }
+
+    public List<Student> like(Student student) {
+        PageHelper.startPage(student.getPage(), student.getLimit());
+        return studentDao.like(BeanMapUtils.beanToMap(student));
+    }
+
+    public Student detail(Integer id) {
+        return studentDao.detail(MapParameter.getInstance().addId(id).getMap());
+    }
+
+    public int update(Student student) {
+        Map<String, Object> map = MapParameter.getInstance().
+                add(BeanMapUtils.beanToMapForUpdate(student)).
+                addId(student.getId()).getMap();
+        return studentDao.update(map);
+    }
 }

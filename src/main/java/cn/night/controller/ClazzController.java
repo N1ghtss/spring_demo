@@ -37,8 +37,9 @@ public class ClazzController {
     @PostMapping("query")
     @ResponseBody
     public Map<String, Object> query(@RequestBody Clazz clazz) {
-        List<Clazz> clazzList = null;
-        if (!Objects.equals(clazz.getClazzName(), "")) {
+        List<Clazz> clazzList;
+        if (!Objects.equals(clazz.getClazzName(), null)) {
+            System.out.println(clazz);
             clazzList = clazzService.like(clazz);
         } else {
             clazzList = clazzService.query(clazz);

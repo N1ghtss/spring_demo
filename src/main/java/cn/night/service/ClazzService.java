@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ClazzService {
@@ -31,7 +32,9 @@ public class ClazzService {
     }
 
     public List<Clazz> like(Clazz clazz) {
-        PageHelper.startPage(clazz.getPage(), clazz.getLimit());
+        if (!Objects.equals(clazz.getClazzName(), "")) {
+            PageHelper.startPage(clazz.getPage(), clazz.getLimit());
+        }
         return clazzDao.like(BeanMapUtils.beanToMap(clazz));
     }
 }

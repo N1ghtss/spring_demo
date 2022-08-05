@@ -15,4 +15,6 @@ public interface TeacherDao {
     int count(Map<String, Object> map);
 
     int insert(Teacher teacher);
+
+    List<Teacher> like(Map<String, Object> map);
 }

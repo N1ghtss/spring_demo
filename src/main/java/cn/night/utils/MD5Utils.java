@@ -2,6 +2,10 @@ package cn.night.utils;
 
 import org.springframework.util.DigestUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MD5Utils {
 
     //盐
@@ -12,7 +16,12 @@ public class MD5Utils {
         return DigestUtils.md5DigestAsHex(val.getBytes());
     }
 
-    public static void main(String[] args) {
-        System.out.println(getMD5("123456"));
+    public static void main(String[] args) throws Exception {
+//        System.out.println(getMD5("123456"));
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.format(date);
+        System.out.println(date);
     }
+
 }

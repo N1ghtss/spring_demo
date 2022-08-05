@@ -57,9 +57,8 @@
             $.ajax({
                 url: "${basePath}notice/create",
                 type: "POST",
-                contentType: 'application/json',
-                data: JSON.stringify(data.field),
                 dataType: 'json', //客户端所接收的数据格式
+                data: data.field,
                 success: function (data) {
                     layer.msg(data.msg, {time: 500}, function () {
                         parent.layer.close(index);

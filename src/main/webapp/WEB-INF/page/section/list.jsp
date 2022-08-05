@@ -77,7 +77,7 @@
                 {field: 'id', width: 80, title: 'ID'},
                 {field: 'year', title: '年份'},
                 {field: 'type', title: '类型'},
-                {field: 'teacherName', title: '老师', templet: '<div>{{d.teacher.teacherName}}</div>'},
+                {field: 'teacherName', title: '老师', templet: '<div>{{d.teacher.name}}</div>'},
                 {field: 'courseName', title: '课程名称', templet: '<div>{{d.course.courseName}}</div>'},
                 {field: 'remark', title: '备注'}
             ]],
