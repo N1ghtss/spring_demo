@@ -30,6 +30,7 @@
     <select id="query" resultMap="Section">
         select *
         from tb_section
+        <include refid="Find"></include>
     </select>
     <select id="count" resultType="int">
         select count(1) from tb_section

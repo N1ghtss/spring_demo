@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("course")
@@ -28,8 +29,13 @@ public class CourseController {
 
     @PostMapping("query")
     @ResponseBody
-    public Map<String, Object> query(Course course) {
-        List<Course> courseList = courseService.query(course);
+    public Map<String, Object> query(@RequestBody Course course) {
+        List<Course> courseList = null;
+        if (!Objects.equals(course.getCourseName(), null)) {
+            courseList = courseService.like(course);
+        } else {
+            courseList = courseService.query(course);
+        }
         Integer count = courseService.count(course);
         return MapControl.getInstance().success().page(courseList, count).getMap();
     }

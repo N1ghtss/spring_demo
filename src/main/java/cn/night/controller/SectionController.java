@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("section")
@@ -33,8 +30,12 @@ public class SectionController {
 
     @PostMapping("query")
     @ResponseBody
-    public Map<String, Object> query(Section section) {
-        List<Section> sectionList = sectionService.query(section);
+    public Map<String, Object> query(@RequestBody Section section) {
+        List<Section> sectionList;
+        if (!Objects.equals(section.getClazzId(), null)) {
+            sectionList = sectionService.queryById(section);
+        }
+        sectionList = sectionService.query(section);
         List<Teacher> teachers = teacherService.query(null);
         List<Course> courses = courseService.query(null);
         sectionList.forEach(section1 -> {

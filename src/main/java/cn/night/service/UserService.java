@@ -40,4 +40,9 @@ public class UserService {
     public int add(User user) {
         return userDao.insert(user);
     }
+
+    public List<User> queryByName(User user) {
+        PageHelper.startPage(user.getPage(), user.getLimit());
+        return userDao.queryByName(BeanMapUtils.beanToMap(user));
+    }
 }

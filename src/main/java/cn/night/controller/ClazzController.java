@@ -39,7 +39,6 @@ public class ClazzController {
     public Map<String, Object> query(@RequestBody Clazz clazz) {
         List<Clazz> clazzList;
         if (!Objects.equals(clazz.getClazzName(), null)) {
-            System.out.println(clazz);
             clazzList = clazzService.like(clazz);
         } else {
             clazzList = clazzService.query(clazz);

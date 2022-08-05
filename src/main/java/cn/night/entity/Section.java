@@ -12,6 +12,23 @@ public class Section extends Entity {
     private String remark;
     private Course course;
 
+    @Override
+    public String toString() {
+        return "Section{" +
+                "id=" + id +
+                ", year=" + year +
+                ", type='" + type + '\'' +
+                ", clazzId=" + clazzId +
+                ", teacherId=" + teacherId +
+                ", courseId=" + courseId +
+                ", remark='" + remark + '\'' +
+                ", course=" + course +
+                ", teacher=" + teacher +
+                ", clazz=" + clazz +
+                ", selected=" + selected +
+                '}';
+    }
+
     public Course getCourse() {
         return course;
     }

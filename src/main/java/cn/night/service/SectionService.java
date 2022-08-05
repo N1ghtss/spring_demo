@@ -30,4 +30,10 @@ public class SectionService {
     public int add(Section section) {
         return sectionDao.insert(section);
     }
+
+    public List<Section> queryById(Section section) {
+        PageHelper.startPage(section.getPage(), section.getLimit());
+        return sectionDao.query(BeanMapUtils.beanToMap(section));
+
+    }
 }

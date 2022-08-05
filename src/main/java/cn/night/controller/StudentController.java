@@ -38,13 +38,23 @@ public class StudentController {
         return "student/add";
     }
 
+    @PostMapping("delete")
+    @ResponseBody
+    public Map<String, Object> delete(String ids) {
+        int result = studentService.delete(ids);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
     @GetMapping("detail/{id}")
     public String detail(@PathVariable("id") Integer id, ModelMap modelMap) {
         // 查询出要修改的学生信息
         Student student = studentService.detail(id);
         // 查询所有的专业
         List<Subject> subjects = subjectService.query(null);
-        List<Clazz> clazzes = clazzService.query(null);
+//        List<Clazz> clazzes = clazzService.query(null);
         // 将查询出来的数据储存到request域，实现表单回写
         modelMap.addAttribute("student", student);
         modelMap.addAttribute("subjects", subjects);

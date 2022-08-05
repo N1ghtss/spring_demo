@@ -65,7 +65,7 @@ public class Notice extends Entity {
         this.content = content;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    //    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getDate() {
         return date;
     }

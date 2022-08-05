@@ -27,6 +27,10 @@
         <include refid="updateStudent"></include>
         <include refid="FindStudent"></include>
     </update>
+    <delete id="delete">
+        delete from tb_student
+        <include refid="FindStudent"></include>
+    </delete>
 
     <!--
         <sql>用来封装SQL语句，<include>来调用的

@@ -14,4 +14,6 @@ public interface CourseDao {
     int count(Map<String, Object> map);
 
     int insert(Course course);
+
+    List<Course> like(Map<String, Object> map);
 }

@@ -14,4 +14,8 @@ public interface NoticeDao {
     int count(Map<String, Object> map);
 
     int insert(Notice notice);
+
+    int update(Map<String, Object> map);
+
+    int delete(Map<String, Object> map);
 }

@@ -9,6 +9,17 @@ public class User extends Entity {
     private String name;
     private String remark;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userPwd='" + userPwd + '\'' +
+                ", name='" + name + '\'' +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

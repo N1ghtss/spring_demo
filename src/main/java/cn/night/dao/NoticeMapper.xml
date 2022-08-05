@@ -16,6 +16,15 @@
         insert into tb_notice(title, author, content, auth, date)
         values (#{title}, #{author}, #{content}, #{auth}, #{date});
     </insert>
+    <update id="update">
+        update tb_notice
+        <include refid="update"></include>
+        <include refid="Find"></include>
+    </update>
+    <delete id="delete">
+        delete from tb_notice
+        <include refid="Find"></include>
+    </delete>
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
     -->
@@ -46,6 +55,15 @@
             <if test="date != null and date != '' ">and date=#{date}</if>
 
         </where>
+    </sql>
+    <sql id="update">
+        <set>
+            <if test="updateTitle !=null and updateTitle != ''">title=#{updateTitle},</if>
+            <if test="updateAuthor !=null and updateAuthor != ''">author=#{updateAuthor},</if>
+            <if test="updateContent !=null and updateContent != ''">content=#{updateContent},</if>
+            <if test="updateAuth !=null and updateAuth != ''">auth=#{updateAuth},</if>
+            <if test="updateDate !=null and updateDate != ''">date=#{updateDate}</if>
+        </set>
     </sql>
 
 </mapper>

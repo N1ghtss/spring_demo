@@ -1,6 +1,5 @@
 package cn.night.controller;
 
-import cn.night.entity.Student;
 import cn.night.entity.User;
 import cn.night.service.UserService;
 import cn.night.utils.MapControl;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("user")
@@ -29,8 +29,13 @@ public class UserController {
 
     @PostMapping("query")
     @ResponseBody
-    public Map<String, Object> query(User user) {
-        List<User> users = userService.query(user);
+    public Map<String, Object> query(@RequestBody User user) {
+        List<User> users;
+        if (Objects.equals(user.getUserName(), "") && Objects.equals(user.getName(), "")) {
+            users = userService.query(user);
+        } else {
+            users = userService.queryByName(user);
+        }
         Integer count = userService.count(user);
         return MapControl.getInstance().success().page(users, count).getMap();
     }

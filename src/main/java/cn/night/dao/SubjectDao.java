@@ -14,7 +14,9 @@ public interface SubjectDao {
 
     int insert(Subject subject);
 
-    int delete(Subject subject);
+    int delete(Map<String, Object> map);
 
     List<Subject> like(Map<String, Object> map);
+
+    int update(Map<String, Object> map);
 }

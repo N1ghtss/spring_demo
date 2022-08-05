@@ -15,4 +15,6 @@ public interface UserDao {
     int count(Map<String, Object> map);
 
     int insert(User user);
+
+    List<User> queryByName(Map<String, Object> map);
 }

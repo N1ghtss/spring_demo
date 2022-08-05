@@ -14,6 +14,11 @@
         insert into tb_subject(subject_name, college, remark)
         values (#{subjectName}, #{college}, #{remark});
     </insert>
+    <update id="update">
+        update tb_subject
+        <include refid="update"></include>
+        <include refid="Find"></include>
+    </update>
     <delete id="delete">
         delete
         from tb_subject
@@ -61,6 +66,13 @@
             <if test="college != null and college != '' ">and college like concat('%',#{college},'%')</if>
             <if test="remark != null and remark != '' ">and remark concat('%',#{remark},'%')</if>
         </where>
+    </sql>
+    <sql id="update">
+        <set>
+            <if test="updateSubjectName != null and updateSubjectName != ''">subject_name=#{updateSubjectName},</if>
+            <if test="updateCollege != null and updateCollege != ''">college=#{updateCollege},</if>
+            <if test="updateRemark != null and updateRemark != ''">remark=#{updateRemark}</if>
+        </set>
     </sql>
 
 </mapper>

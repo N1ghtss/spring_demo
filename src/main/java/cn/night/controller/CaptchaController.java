@@ -14,9 +14,10 @@ import java.util.Random;
 @Controller
 @RequestMapping("/captcha")
 public class CaptchaController {
-    private char[] codeArr = new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    //    private char[] codeArr = new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+//            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+//            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    private char[] codeArr = new char[]{'1', '1', '1', '1'};
 
     @RequestMapping("/code")
     public void getCode(HttpServletResponse response, HttpSession session) throws IOException {

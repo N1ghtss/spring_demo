@@ -29,4 +29,8 @@ public class CourseService {
     public int add(Course course) {
         return courseDao.insert(course);
     }
+
+    public List<Course> like(Course course) {
+        return courseDao.like(BeanMapUtils.beanToMap(course));
+    }
 }

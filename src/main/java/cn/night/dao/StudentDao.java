@@ -19,4 +19,6 @@ public interface StudentDao {
     List<Student> like(Map<String, Object> beanToMap);
 
     int update(Map<String, Object> map);
+
+    int delete(Map<String, Object> map);
 }

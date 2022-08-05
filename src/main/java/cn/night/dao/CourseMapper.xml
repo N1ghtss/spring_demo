@@ -30,8 +30,13 @@
     </select>
     <select id="count" resultType="int">
         select count(1) from tb_course
-        <include refid="Find"/>
+        <include refid="like"/>
         limit 1
+    </select>
+    <select id="like" resultMap="Course">
+        select *
+        from tb_course
+        <include refid="like"></include>
     </select>
 
     <!-- 查询通用片段 -->
@@ -40,6 +45,14 @@
             <if test="id != null">and id=#{id}</if>
             <if test="courseName != null and courseName != '' ">and course_name=#{courseName}</if>
             <if test="remark != null and remark != '' ">and remark=#{remark}</if>
+        </where>
+    </sql>
+    <sql id="like">
+        <where>
+            <if test="id != null">and id like concat('%',#{id},'%')</if>
+            <if test="courseName != null and courseName != '' ">and course_name like concat('%',#{courseName},'%')
+            </if>
+            <if test="remark != null and remark != '' ">and remark like concat('%',#{remark},'%')</if>
         </where>
     </sql>
 

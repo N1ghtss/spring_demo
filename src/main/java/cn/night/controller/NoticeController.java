@@ -8,6 +8,7 @@ import cn.night.utils.MapControl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
@@ -32,6 +33,40 @@ public class NoticeController {
     @GetMapping("add")
     public String add() {
         return "notice/add";
+    }
+
+    @PostMapping("update")
+    @ResponseBody
+    public Map<String, Object> update(@RequestBody Notice notice) {
+        int result = noticeService.update(notice);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
+    @GetMapping("look/{id}")
+    public String look(@PathVariable("id") Integer id, ModelMap modelMap) {
+        Notice notice = noticeService.detail(id);
+        modelMap.addAttribute("notice", notice);
+        return "notice/look";
+    }
+
+    @PostMapping("delete")
+    @ResponseBody
+    public Map<String, Object> delete(String ids) {
+        int result = noticeService.delete(ids);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
+    @GetMapping("detail/{id}")
+    public String detail(@PathVariable Integer id, ModelMap modelMap) {
+        Notice notice = noticeService.detail(id);
+        modelMap.addAttribute("notice", notice);
+        return "notice/update";
     }
 
     @PostMapping("query")

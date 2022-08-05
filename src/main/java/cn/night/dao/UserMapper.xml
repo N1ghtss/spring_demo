@@ -30,8 +30,13 @@
     </select>
     <select id="count" resultType="int">
         select count(1) from tb_user
-        <include refid="Find"/>
+        <include refid="queryByName"/>
         limit 1
+    </select>
+    <select id="queryByName" resultMap="User">
+        select *
+        from tb_user
+        <include refid="queryByName"></include>
     </select>
 
     <!-- 查询通用片段 -->
@@ -43,6 +48,16 @@
             <if test="name != null and name != '' ">and name=#{name}</if>
             <if test="remark != null and remark != '' ">and remark=#{remark}</if>
 
+        </where>
+    </sql>
+    <sql id="queryByName">
+        <where>
+            <if test="userName != null and userName != '' ">
+                and user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="name != null and name != '' ">
+                and name like concat('%', #{name}, '%')
+            </if>
         </where>
     </sql>
 

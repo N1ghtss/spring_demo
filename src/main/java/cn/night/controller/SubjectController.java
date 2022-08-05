@@ -5,6 +5,7 @@ import cn.night.service.SubjectService;
 import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +28,26 @@ public class SubjectController {
         return "subject/add";
     }
 
+    @GetMapping("detail/{id}")
+    public String detail(@PathVariable("id") Integer id, ModelMap modelMap) {
+        Subject subject = subjectService.detail(id);
+        modelMap.addAttribute("subject", subject);
+        return "subject/update";
+    }
+
+    @PostMapping("update")
+    @ResponseBody
+    public Map<String, Object> update(Subject subject) {
+        int result = subjectService.update(subject);
+        if (result <= 0) {
+            return MapControl.getInstance().error().getMap();
+        }
+        return MapControl.getInstance().success().getMap();
+    }
+
     @PostMapping("query")
     @ResponseBody
+
     public Map<String, Object> query(@RequestBody Subject subject) {
         List<Subject> subjectList;
         if (Objects.equals(subject.getSubjectName(), "") && Objects.equals(subject.getCollege(), "")) {
@@ -52,20 +71,10 @@ public class SubjectController {
         return MapControl.getInstance().success().getMap();
     }
 
-    //    @PostMapping("dalete")
-//    @ResponseBody
-//    public Map<String, Object> delete(@RequestBody Subject subject) {
-//        int result = subjectService.delete(subject);
-//        if (result <= 0) {
-//            return MapControl.getInstance().error().getMap();
-//        }
-//        return MapControl.getInstance().success().getMap();
-//    }
-    //删除数据
     @PostMapping("delete")
     @ResponseBody
-    public Map<String, Object> delete(@RequestBody Subject subject) {
-        int result = subjectService.delete(subject);
+    public Map<String, Object> delete(String ids) {
+        int result = subjectService.delete(ids);
         if (result <= 0) {
             return MapControl.getInstance().error().getMap();
         }

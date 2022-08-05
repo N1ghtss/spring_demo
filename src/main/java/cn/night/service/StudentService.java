@@ -56,4 +56,12 @@ public class StudentService {
                 addId(student.getId()).getMap();
         return studentDao.update(map);
     }
+
+    public int delete(String ids) {
+        int count = 0;
+        for (String str : ids.split(",")) {
+            count = studentDao.delete(MapParameter.getInstance().addId(Integer.parseInt(str)).getMap());
+        }
+        return count;
+    }
 }
