@@ -3,6 +3,7 @@ package cn.night.controller;
 import cn.night.entity.Student;
 import cn.night.entity.Teacher;
 import cn.night.entity.User;
+import cn.night.service.ScoreService;
 import cn.night.service.StudentService;
 import cn.night.service.TeacherService;
 import cn.night.service.UserService;
@@ -27,6 +28,8 @@ public class LoginController {
     private TeacherService teacherService;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private ScoreService scoreService;
 
     @GetMapping("/login")
     public String login() {

@@ -9,7 +9,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("section")
@@ -24,6 +27,10 @@ public class SectionController {
     private SubjectService subjectService;
     @Autowired
     private ClazzService clazzService;
+    @Autowired
+    private StudentService studentService;
+    @Autowired
+    private ScoreService scoreService;
 
     @GetMapping("list")
     public String list() {
@@ -35,10 +42,26 @@ public class SectionController {
         return "section/teacher_section";
     }
 
+
     @GetMapping("teacher_student_score")
-//    @ResponseBody
-    public String teacher_student_score() {
+    public String teacher_student_score(Integer courseId, Integer sectionId, ModelMap modelMap) {
+        List<Score> scoreList = scoreService.
+                join(new Score().setSectionid(sectionId).setCourseid(courseId));
+        modelMap.addAttribute("list", scoreList);
+        modelMap.addAttribute("courseId", courseId);
+        modelMap.addAttribute("sectionId", sectionId);
         return "section/teacher_student_score";
+    }
+
+    @PostMapping("teacher_student_score")
+    @ResponseBody
+    public Map<String, Object> teacher_student_score(Integer courseId, Integer sectionId, String stuIds, ModelMap modelMap) {
+        System.out.println(courseId);
+        System.out.println(stuIds);
+//        if (result <= 0) {
+//            return MapControl.getInstance().error().getMap();
+//        }
+        return MapControl.getInstance().success().getMap();
     }
 
     @PostMapping("query_teacher_section")

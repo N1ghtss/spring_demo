@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.night.dao.ScoreDao">
+    <!-- 定义通用的resultMap-->
+    <resultMap id="Score" type="cn.night.entity.Score">
+        <id column="id" property="id"/>
+        <result column="id" property="id"/>
+        <result column="score" property="score"/>
+        <result column="stu_id" property="stuId"/>
+        <result column="section_id" property="sectionId"/>
+        <result column="course_id" property="courseId"/>
+        <association property="stuName" column="stu_name">
+            <result column="stu_name"></result>
+        </association>
+
+    </resultMap>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_score(score, student_id, section_id, course_id)
+        values (#{score}, #{stuId}, #{sectionId}, #{courseId});
+    </insert>
+    <update id="update">
+        update tb_score
+        <include refid="update"></include>
+        <include refid="Find"></include>
+    </update>
+    <delete id="delete">
+        delete from tb_score
+        <include refid="Find"></include>
+    </delete>
+    <select id="join" resultMap="Score">
+        SELECT tb_score.id,
+        tb_score.section_id,
+        tb_score.course_id,
+        tb_score.stu_id,
+        tb_score.score,
+        tb_student.stu_name
+        FROM tb_score
+        join tb_student on tb_student.id = tb_score.stu_id
+        <include refid="Find"></include>
+    </select>
+
+    <!--
+        <sql id="1">用来封装SQL语句，<include refid="1">来调用
+    -->
+    <!-- 明细查询 -->
+    <select id="detail" resultMap="Score">
+        select * from tb_score
+        <include refid="Find"/>
+        limit 1
+    </select>
+    <select id="query" resultMap="Score">
+        select *
+        from tb_score
+        <include refid="Find"></include>
+    </select>
+    <select id="count" resultType="int">
+        select count(1) from tb_score
+        <include refid="Find"/>
+        limit 1
+    </select>
+
+    <!-- 查询通用片段 -->
+    <sql id="Find">
+        <where>
+            <if test="id != null and id != '' ">and id = #{id}</if>
+            <if test="stuId != null and stuId != '' ">and stu_id = #{stuId}</if>
+            <if test="sectionId != null and sectionId != '' ">and section_id = #{sectionId}</if>
+            <if test="courseId != null and courseId != '' ">and course_id = #{courseId}</if>
+            <if test="score != null and score != '' ">and score = #{score}</if>
+        </where>
+    </sql>
+    <sql id="update">
+        <set>
+            <if test="updateId != null and updateId != '' ">id=#{updateId},</if>
+            <if test="updateScore != null and updateScore != '' ">score=#{updateScore},</if>
+            <if test="updateStuId != null and updateStuId != '' ">student_id=#{updateStuId},</if>
+            <if test="updateSectionId != null and updateSectionId != '' ">section_id=#{updateSectionId},</if>
+            <if test="updateCourseId != null and updateCourseId != '' ">course_id=#{updateCourseId}</if>
+
+        </set>
+    </sql>
+
+</mapper>

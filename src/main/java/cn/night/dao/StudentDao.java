@@ -1,8 +1,6 @@
 package cn.night.dao;
 
 import cn.night.entity.Student;
-import cn.night.entity.Teacher;
-import cn.night.entity.User;
 
 import java.util.List;
 import java.util.Map;

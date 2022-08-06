@@ -46,6 +46,7 @@
         select *
         from tb_student
     </select>
+
     <!-- 查询总记录条数-->
     <select id="count" resultType="int">
         select count(1) from tb_student

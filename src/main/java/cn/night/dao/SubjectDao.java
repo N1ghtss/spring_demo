@@ -19,4 +19,5 @@ public interface SubjectDao {
     List<Subject> like(Map<String, Object> map);
 
     int update(Map<String, Object> map);
+
 }
