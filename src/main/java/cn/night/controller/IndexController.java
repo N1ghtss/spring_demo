@@ -23,21 +23,21 @@ public class IndexController {
     private CourseService courseService;
     @Autowired
     private SectionService sectionService;
-    
+
 
     // 跳转系统主页
-    @GetMapping("/index")
+    @GetMapping("index")
     public String login() {
         return "index";
     }
 
     // 跳转用户基本信息页面
-    @GetMapping("/info")
+    @GetMapping("info")
     public String info() {
         return "info";
     }
 
-    @GetMapping("/pwd")
+    @GetMapping("pwd")
     public String pwd() {
         return "pwd";
     }

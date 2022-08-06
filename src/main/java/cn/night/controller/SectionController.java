@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
@@ -34,7 +35,37 @@ public class SectionController {
         return "section/teacher_section";
     }
 
-    
+    @GetMapping("teacher_student_score")
+//    @ResponseBody
+    public String teacher_student_score() {
+        return "section/teacher_student_score";
+    }
+
+    @PostMapping("query_teacher_section")
+    @ResponseBody
+    public Map<String, Object> query_teacher_section(HttpSession session, Section section) {
+        //获取老师信息
+        Teacher teacher = (Teacher) session.getAttribute("user");
+        section.setTeacherId(teacher.getId());
+        List<Section> sectionList = sectionService.query(section);
+        List<Clazz> clazzes = clazzService.query(null);
+        List<Course> courses = courseService.query(null);
+        sectionList.forEach(section1 -> {
+            clazzes.forEach(clazz -> {
+                if (section1.getClazzId() == clazz.getId()) {
+                    section1.setClazz(clazz);
+                }
+                courses.forEach(course -> {
+                    if (course.getId() == section1.getCourseId()) {
+                        section1.setCourse(course);
+                    }
+                });
+            });
+        });
+        return MapControl.getInstance().success().put("data", sectionList).getMap();
+    }
+
+
     @GetMapping("add")
     public String add(Integer clazzId, ModelMap modelMap) {
         List<Teacher> teachers = teacherService.query(null);

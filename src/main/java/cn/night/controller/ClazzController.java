@@ -68,7 +68,7 @@ public class ClazzController {
     @ResponseBody
     public Map<String, Object> query(@RequestBody Clazz clazz) {
         List<Clazz> clazzList;
-        if (!Objects.equals(clazz.getClazzName(), null)) {
+        if (!Objects.equals(clazz, null)) {
             clazzList = clazzService.like(clazz);
         } else {
             clazzList = clazzService.query(clazz);

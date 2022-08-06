@@ -59,10 +59,10 @@ public class TeacherController {
     @ResponseBody
     public Map<String, Object> query(@RequestBody Teacher teacher) {
         List<Teacher> teacherList;
-        if (!Objects.equals(teacher.getName(), "")) {
-            teacherList = teacherService.like(teacher);
-        } else {
+        if (Objects.equals(teacher, null)) {
             teacherList = teacherService.query(teacher);
+        } else {
+            teacherList = teacherService.like(teacher);
         }
         Integer count = teacherService.count(teacher);
         return MapControl.getInstance().success().put("data", teacherList).put("count", count).getMap();

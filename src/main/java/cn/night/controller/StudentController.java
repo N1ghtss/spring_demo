@@ -93,7 +93,7 @@ public class StudentController {
     @ResponseBody
     public Map<String, Object> query(@RequestBody Student student) {
         List<Student> list;
-        if (!Objects.equals(student.getStuName(), "")) {
+        if (!Objects.equals(student, "")) {
             list = studentService.like(student);
         } else {
             // 查询所有学生信息

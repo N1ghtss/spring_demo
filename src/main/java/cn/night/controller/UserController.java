@@ -59,7 +59,7 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> query(@RequestBody User user) {
         List<User> users;
-        if (Objects.equals(user.getUserName(), "") && Objects.equals(user.getName(), "")) {
+        if (Objects.equals(user, null)) {
             users = userService.query(user);
         } else {
             users = userService.queryByName(user);

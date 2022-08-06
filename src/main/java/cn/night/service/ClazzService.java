@@ -36,9 +36,7 @@ public class ClazzService {
     }
 
     public List<Clazz> like(Clazz clazz) {
-        if (!Objects.equals(clazz.getClazzName(), "")) {
-            PageHelper.startPage(clazz.getPage(), clazz.getLimit());
-        }
+        PageHelper.startPage(clazz.getPage(), clazz.getLimit());
         return clazzDao.like(BeanMapUtils.beanToMap(clazz));
     }
 

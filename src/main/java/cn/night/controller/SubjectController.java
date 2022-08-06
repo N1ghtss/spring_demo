@@ -50,7 +50,7 @@ public class SubjectController {
 
     public Map<String, Object> query(@RequestBody Subject subject) {
         List<Subject> subjectList;
-        if (Objects.equals(subject.getSubjectName(), "") && Objects.equals(subject.getCollege(), "")) {
+        if (Objects.equals(subject, null)) {
             subjectList = subjectService.query(subject);
 //        return MapControl.getInstance().success().put("data", clazzList).put("count", count).getMap();
         } else {

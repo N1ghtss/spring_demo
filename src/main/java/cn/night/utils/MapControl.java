@@ -7,7 +7,7 @@ import java.util.Map;
 public class MapControl {
 
     //目标对象
-    private Map<String, Object> paramMap = new HashMap<String,Object>();
+    private Map<String, Object> paramMap = new HashMap<String, Object>();
 
     //私有构造
     private MapControl() {

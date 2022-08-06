@@ -60,7 +60,7 @@ public class CourseController {
     @ResponseBody
     public Map<String, Object> query(@RequestBody Course course) {
         List<Course> courseList = null;
-        if (!Objects.equals(course.getCourseName(), null)) {
+        if (!Objects.equals(course, null)) {
             courseList = courseService.like(course);
         } else {
             courseList = courseService.query(course);
