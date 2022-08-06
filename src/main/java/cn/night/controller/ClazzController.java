@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("clazz")
@@ -68,11 +67,13 @@ public class ClazzController {
     @ResponseBody
     public Map<String, Object> query(@RequestBody Clazz clazz) {
         List<Clazz> clazzList;
-        if (!Objects.equals(clazz, null)) {
-            clazzList = clazzService.like(clazz);
-        } else {
-            clazzList = clazzService.query(clazz);
-        }
+//        if (!Objects.equals(clazz, null)) {
+//            clazzList = clazzService.like(clazz);
+//        } else {
+        //todo optimize query
+
+        clazzList = clazzService.query(clazz);
+//        }
         List<Subject> subjects = subjectService.query(null);
         clazzList.forEach(clazz1 -> {
             subjects.forEach(subject -> {

@@ -31,8 +31,13 @@ public class StudentController {
         return "student/list";
     }
 
+
     @GetMapping("teacher_student")
-    public String teacher_student() {
+    public String teacher_student(ModelMap modelMap) {
+        List<Clazz> clazzes = clazzService.query(null);
+        List<Subject> subjects = subjectService.query(null);
+        modelMap.addAttribute("clazzes", clazzes);
+        modelMap.addAttribute("subjects", subjects);
         return "student/teacher_student";
     }
 
@@ -122,6 +127,16 @@ public class StudentController {
         //查询总记录条数
         Integer count = studentService.count(student);
         return MapControl.getInstance().success().page(list, count).getMap();
+    }
+
+}
+
+@RequestMapping("score")
+@Controller
+class ScoreController {
+    @GetMapping("student_score")
+    public String student_score() {
+        return "score/student_score";
     }
 
 }

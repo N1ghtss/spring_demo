@@ -37,6 +37,11 @@ public class SectionController {
         return "section/list";
     }
 
+    @GetMapping("student_section")
+    public String student_section() {
+        return "section/student_section";
+    }
+
     @GetMapping("teacher_section")
     public String teacher_section() {
         return "section/teacher_section";
@@ -64,6 +69,34 @@ public class SectionController {
         return MapControl.getInstance().success().getMap();
     }
 
+    @PostMapping("query_student_section")
+    @ResponseBody
+    public Map<String, Object> query_student_section(HttpSession session) {
+        Student student = (Student) session.getAttribute("user");
+        List<Section> sectionList = sectionService.query(new Section().setClazzId(student.getClazzId()));
+        List<Clazz> clazzList = clazzService.query(null);
+        List<Course> courseList = courseService.query(null);
+        List<Teacher> teacherList = teacherService.query(null);
+        sectionList.forEach(section -> {
+            clazzList.forEach(clazz -> {
+                if (section.getClazzId() == clazz.getId()) {
+                    section.setClazz(clazz);
+                }
+            });
+            courseList.forEach(course -> {
+                if (section.getCourseId() == course.getId()) {
+                    section.setCourse(course);
+                }
+            });
+            teacherList.forEach(teacher -> {
+                if (section.getTeacherId() == teacher.getId()) {
+                    section.setTeacher(teacher);
+                }
+            });
+        });
+        return MapControl.getInstance().success().add("data", sectionList).getMap();
+    }
+
     @PostMapping("query_teacher_section")
     @ResponseBody
     public Map<String, Object> query_teacher_section(HttpSession session, Section section) {
@@ -78,11 +111,12 @@ public class SectionController {
                 if (section1.getClazzId() == clazz.getId()) {
                     section1.setClazz(clazz);
                 }
-                courses.forEach(course -> {
-                    if (course.getId() == section1.getCourseId()) {
-                        section1.setCourse(course);
-                    }
-                });
+
+            });
+            courses.forEach(course -> {
+                if (course.getId() == section1.getCourseId()) {
+                    section1.setCourse(course);
+                }
             });
         });
         return MapControl.getInstance().success().put("data", sectionList).getMap();

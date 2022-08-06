@@ -93,8 +93,9 @@ public class Section extends Entity {
         return clazzId;
     }
 
-    public void setClazzId(Integer clazzId) {
+    public Section setClazzId(Integer clazzId) {
         this.clazzId = clazzId;
+        return this;
     }
 
     public Integer getTeacherId() {

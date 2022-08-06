@@ -35,6 +35,7 @@
     <select id="query" resultMap="Clazz">
         select *
         from tb_clazz
+        <include refid="Find"></include>
     </select>
     <select id="count" resultType="int">
         select count(1) from tb_clazz
@@ -51,7 +52,7 @@
     <sql id="Find">
         <where>
             <if test="id != null">and id=#{id}</if>
-            <if test="clazzName != null and clazzName != '' ">and clazz_name=#{clazzName}</if>
+            <if test="clazzName != null and clazzName != '' ">and clazz_name like concat('%',#{clazzName},'%')</if>
             <if test="subjectId != null and subjectId != '' ">and subject_id=#{subject_id}</if>
             <if test="remark != null and remark != '' ">and remark=#{remark}</if>
 
