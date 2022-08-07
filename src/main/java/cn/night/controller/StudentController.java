@@ -131,12 +131,3 @@ public class StudentController {
 
 }
 
-@RequestMapping("score")
-@Controller
-class ScoreController {
-    @GetMapping("student_score")
-    public String student_score() {
-        return "score/student_score";
-    }
-
-}

@@ -11,6 +11,33 @@ public class Score extends Entity {
     private Integer stuId;
     private BigDecimal score;
     private String stuName;
+    private Student student;
+    private Course course;
+    private Section section;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public Section getSection() {
+        return section;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
+    }
 
     public String getStuName() {
         return stuName;
@@ -61,8 +88,9 @@ public class Score extends Entity {
         return stuId;
     }
 
-    public void setStuId(Integer stuId) {
+    public Score setStuId(Integer stuId) {
         this.stuId = stuId;
+        return this;
     }
 
     public BigDecimal getScore() {

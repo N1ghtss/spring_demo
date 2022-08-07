@@ -20,4 +20,16 @@ public class ScoreService {
     public List<Score> join(Score score) {
         return scoreDao.join(BeanMapUtils.beanToMap(score));
     }
+
+    public List<Score> queryByStu(Score score) {
+        return scoreDao.queryByStu(BeanMapUtils.beanToMap(score));
+    }
+
+    public Score detail(Score score) {
+        return scoreDao.detail(BeanMapUtils.beanToMap(score));
+    }
+
+    public void create(Score score) {
+        scoreDao.insert(score);
+    }
 }

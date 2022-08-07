@@ -15,9 +15,18 @@
         </association>
 
     </resultMap>
+    <resultMap id="ScoreStu" type="cn.night.entity.Score">
+        <id column="id" property="id"/>
+        <result column="id" property="id"/>
+        <result column="score" property="score"/>
+        <result column="stu_id" property="stuId"/>
+        <result column="section_id" property="sectionId"/>
+        <result column="course_id" property="courseId"/>
+
+    </resultMap>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_score(score, student_id, section_id, course_id)
-        values (#{score}, #{stuId}, #{sectionId}, #{courseId});
+        insert into tb_score(stu_id, section_id, course_id)
+        values (#{stuId}, #{sectionId}, #{courseId});
     </insert>
     <update id="update">
         update tb_score
@@ -39,17 +48,16 @@
         join tb_student on tb_student.id = tb_score.stu_id
         <include refid="Find"></include>
     </select>
-
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
     -->
     <!-- 明细查询 -->
-    <select id="detail" resultMap="Score">
+    <select id="detail" resultMap="ScoreStu">
         select * from tb_score
         <include refid="Find"/>
         limit 1
     </select>
-    <select id="query" resultMap="Score">
+    <select id="query" resultMap="ScoreStu">
         select *
         from tb_score
         <include refid="Find"></include>
@@ -58,6 +66,11 @@
         select count(1) from tb_score
         <include refid="Find"/>
         limit 1
+    </select>
+    <select id="queryByStu" resultMap="ScoreStu">
+        select *
+        from tb_score
+        <include refid="Find"></include>
     </select>
 
     <!-- 查询通用片段 -->

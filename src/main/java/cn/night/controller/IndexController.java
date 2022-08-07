@@ -7,7 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -23,6 +26,8 @@ public class IndexController {
     private CourseService courseService;
     @Autowired
     private SectionService sectionService;
+    @Autowired
+    private ScoreService scoreService;
 
 
     // 跳转系统主页
@@ -78,6 +83,56 @@ public class IndexController {
 
         }
         modelMap.addAttribute("mapList", mapList);
+        // 3.课程平均成绩
+        List<Map<String, Object>> map2 = new ArrayList<>();
+        List<Section> sectionList = sectionService.query(null);
+        List<Course> courseList = courseService.query(null);
+        List<Clazz> clazzList = clazzService.query(null);
+        List<Score> scoreList = scoreService.query(null);
+        sectionList.forEach(section -> {
+            Map<String, Object> map = new HashMap<>();
+            // 设置平均成绩
+            double sum = 0;
+            int cnt = 0;
+            for (Score score : scoreList) {
+                if (score.getScore() == null) {
+                    continue;
+                }
+                if (section.getId() == score.getSectionId()) {
+                    sum += score.getScore().doubleValue();
+                    cnt++;
+                }
+            }
+            if (cnt == 0) {
+                return;
+            }
+            map.put("avgScore", sum / cnt);
+            // 设置班级名称
+            clazzList.forEach(clazz -> {
+                if (section.getClazzId() == clazz.getId()) {
+                    map.put("clazzName", clazz.getClazzName());
+                }
+            });
+            // 设置课程名称
+            courseList.forEach(course -> {
+                if (section.getCourseId() == course.getId()) {
+                    map.put("courseName", course.getCourseName());
+                }
+            });
+
+            map2.add(map);
+        });
+
+//        for (int i = 0; i < 7; i++) {
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("clazzName", "testclazz" + i);
+//            map.put("courseName", "testcourse" + i);
+//            map.put("avgScore", i + 88);
+//            map2.add(map);
+//        }
+
+
+        modelMap.addAttribute("mapList2", map2);
         return "main";
     }
 }

@@ -13,11 +13,13 @@ public interface ScoreDao {
 
     int count(Map<String, Object> map);
 
-    int insert(Score score);
+    void insert(Score score);
 
     int update(Map<String, Object> map);
 
     int delete(Map<String, Object> map);
 
     List<Score> join(Map<String, Object> map);
+
+    List<Score> queryByStu(Map<String, Object> beanToMap);
 }
