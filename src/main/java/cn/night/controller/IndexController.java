@@ -83,53 +83,48 @@ public class IndexController {
 
         }
         modelMap.addAttribute("mapList", mapList);
+
         // 3.课程平均成绩
-        List<Map<String, Object>> map2 = new ArrayList<>();
-        List<Section> sectionList = sectionService.query(null);
-        List<Course> courseList = courseService.query(null);
-        List<Clazz> clazzList = clazzService.query(null);
-        List<Score> scoreList = scoreService.query(null);
-        sectionList.forEach(section -> {
-            Map<String, Object> map = new HashMap<>();
-            // 设置平均成绩
-            double sum = 0;
-            int cnt = 0;
-            for (Score score : scoreList) {
-                if (score.getScore() == null) {
-                    continue;
-                }
-                if (section.getId() == score.getSectionId()) {
-                    sum += score.getScore().doubleValue();
-                    cnt++;
-                }
-            }
-            if (cnt == 0) {
-                return;
-            }
-            map.put("avgScore", sum / cnt);
-            // 设置班级名称
-            clazzList.forEach(clazz -> {
-                if (section.getClazzId() == clazz.getId()) {
-                    map.put("clazzName", clazz.getClazzName());
-                }
-            });
-            // 设置课程名称
-            courseList.forEach(course -> {
-                if (section.getCourseId() == course.getId()) {
-                    map.put("courseName", course.getCourseName());
-                }
-            });
-
-            map2.add(map);
-        });
-
-//        for (int i = 0; i < 7; i++) {
+//        List<Map<String, Object>> map2 = new ArrayList<>();
+//        List<Section> sectionList = sectionService.query(null);
+//        List<Course> courseList = courseService.query(null);
+//        List<Clazz> clazzList = clazzService.query(null);
+//        List<Score> scoreList = scoreService.query(null);
+//        sectionList.forEach(section -> {
 //            Map<String, Object> map = new HashMap<>();
-//            map.put("clazzName", "testclazz" + i);
-//            map.put("courseName", "testcourse" + i);
-//            map.put("avgScore", i + 88);
+//            // 设置平均成绩
+//            double sum = 0;
+//            int cnt = 0;
+//            for (Score score : scoreList) {
+//                if (score.getScore() == null) {
+//                    continue;
+//                }
+//                if (section.getId() == score.getSectionId()) {
+//                    sum += score.getScore().doubleValue();
+//                    cnt++;
+//                }
+//            }
+//            if (cnt == 0) {
+//                return;
+//            }
+//            map.put("avgScore", sum / cnt);
+//            // 设置班级名称
+//            clazzList.forEach(clazz -> {
+//                if (section.getClazzId() == clazz.getId()) {
+//                    map.put("clazzName", clazz.getClazzName());
+//                }
+//            });
+//            // 设置课程名称
+//            courseList.forEach(course -> {
+//                if (section.getCourseId() == course.getId()) {
+//                    map.put("courseName", course.getCourseName());
+//                }
+//            });
+//
 //            map2.add(map);
-//        }
+//        });
+
+        List<HashMap> map2 = scoreService.queryAvgScoreBySection();
 
 
         modelMap.addAttribute("mapList2", map2);

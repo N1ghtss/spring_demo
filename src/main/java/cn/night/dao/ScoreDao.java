@@ -3,6 +3,7 @@ package cn.night.dao;
 
 import cn.night.entity.Score;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +23,8 @@ public interface ScoreDao {
     List<Score> join(Map<String, Object> map);
 
     List<Score> queryByStu(Map<String, Object> beanToMap);
+
+    List<HashMap> queryAvgScoreBySection(Map<String, Object> map);
+
+    List<HashMap> stuScore(Map<String, Object> map);
 }

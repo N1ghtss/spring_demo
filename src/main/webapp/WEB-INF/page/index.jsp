@@ -135,14 +135,14 @@
             multiModule: false,          //是否开启多模块
             menuChildOpen: true,       //是否默认展开菜单
             loadingTime: 0,             //初始化加载时间
-            pageAnim: false,             //切换菜单动画
+            pageAnim: true,             //切换菜单动画
         };
         miniAdmin.render(options);
 
         //退出登录
         $('.login-out').on("click", function () {
             layer.confirm('确定退出吗？', function (index) {
-                window.location.href = "${basePath}/logout";
+                window.location.href = "${basePath}/login";
             });
         });
     });

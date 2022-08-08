@@ -6,6 +6,7 @@ import cn.night.utils.BeanMapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -21,6 +22,10 @@ public class ScoreService {
         return scoreDao.join(BeanMapUtils.beanToMap(score));
     }
 
+    public List<HashMap> stuScore(Score score) {
+        return scoreDao.stuScore(BeanMapUtils.beanToMap(score));
+    }
+
     public List<Score> queryByStu(Score score) {
         return scoreDao.queryByStu(BeanMapUtils.beanToMap(score));
     }
@@ -31,5 +36,9 @@ public class ScoreService {
 
     public void create(Score score) {
         scoreDao.insert(score);
+    }
+
+    public List<HashMap> queryAvgScoreBySection() {
+        return scoreDao.queryAvgScoreBySection(null);
     }
 }

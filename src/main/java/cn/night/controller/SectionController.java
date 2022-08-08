@@ -50,8 +50,9 @@ public class SectionController {
 
     @GetMapping("teacher_student_score")
     public String teacher_student_score(Integer courseId, Integer sectionId, ModelMap modelMap) {
-        List<Score> scoreList = scoreService.
-                join(new Score().setSectionid(sectionId).setCourseid(courseId));
+        List<HashMap> scoreList = scoreService.
+                stuScore(new Score().setSectionid(sectionId).setCourseid(courseId));
+        System.out.println(scoreList);
         modelMap.addAttribute("list", scoreList);
         modelMap.addAttribute("courseId", courseId);
         modelMap.addAttribute("sectionId", sectionId);
@@ -60,9 +61,16 @@ public class SectionController {
 
     @PostMapping("teacher_student_score")
     @ResponseBody
-    public Map<String, Object> teacher_student_score(Integer courseId, Integer sectionId, String stuIds, ModelMap modelMap) {
+    public Map<String, Object> teacher_student_score(Integer sectionId, Integer courseId, String stuIds, String scores) {
+        System.out.println(sectionId);
         System.out.println(courseId);
-        System.out.println(stuIds);
+        String[] stuId = stuIds.split(",");
+        String[] score = scores.split(",");
+        for (int i = 0; i < stuId.length; i++) {
+            System.out.println(stuId[i]);
+            System.out.println(score[i]);
+        }
+
 //        if (result <= 0) {
 //            return MapControl.getInstance().error().getMap();
 //        }

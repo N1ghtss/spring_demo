@@ -48,6 +48,17 @@
         join tb_student on tb_student.id = tb_score.stu_id
         <include refid="Find"></include>
     </select>
+    <select id="stuScore" resultType="hashmap">
+        SELECT tb_score.id,
+        tb_score.section_id,
+        tb_score.course_id,
+        tb_score.stu_id,
+        tb_score.score,
+        tb_student.stu_name stuName
+        FROM tb_score
+        join tb_student on tb_student.id = tb_score.stu_id
+        <include refid="Find"></include>
+    </select>
     <!--
         <sql id="1">用来封装SQL语句，<include refid="1">来调用
     -->
@@ -71,6 +82,17 @@
         select *
         from tb_score
         <include refid="Find"></include>
+    </select>
+    <select id="queryAvgScoreBySection" resultType="hashmap">
+        select year, type, (
+            select clazz_name from tb_clazz where tb_clazz.id = tb_section.clazz_id
+            ) clazzName, (
+            select course_name from tb_course where tb_course.id = tb_section.course_id
+            ) courseName, avgScore
+        from tb_section, (
+            select section_id, avg (score) avgScore from tb_score group by section_id
+            ) A
+        where tb_section.id = A.section_id
     </select>
 
     <!-- 查询通用片段 -->
