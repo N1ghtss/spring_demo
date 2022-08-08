@@ -1,20 +1,15 @@
 package cn.night.controller;
 
 import cn.night.entity.Notice;
-import cn.night.entity.Section;
+import cn.night.entity.User;
 import cn.night.service.NoticeService;
-import cn.night.utils.BeanMapUtils;
 import cn.night.utils.MapControl;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +74,9 @@ public class NoticeController {
 
     @PostMapping("create")
     @ResponseBody
-    public Map<String, Object> create(Notice notice) {
+    public Map<String, Object> create(Notice notice, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        notice.setAuth(user.getId());
         Date date = new Date();
         date.setTime(System.currentTimeMillis());
         notice.setDate(date);

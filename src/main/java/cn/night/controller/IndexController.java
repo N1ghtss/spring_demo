@@ -2,11 +2,15 @@ package cn.night.controller;
 
 import cn.night.entity.*;
 import cn.night.service.*;
+import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +32,8 @@ public class IndexController {
     private SectionService sectionService;
     @Autowired
     private ScoreService scoreService;
+    @Autowired
+    private UserService userService;
 
 
     // 跳转系统主页
@@ -45,6 +51,31 @@ public class IndexController {
     @GetMapping("pwd")
     public String pwd() {
         return "pwd";
+    }
+
+    @PostMapping("pwd")
+    @ResponseBody
+    public Map<String, Object> pwdUpdate(String sourcePwd, String newPwd, String type, Integer id, HttpSession session) {
+        switch (type) {
+            case "1":
+                User user = (User) session.getAttribute("user");
+                String old = userService.detail(id).getUserPwd();
+                if (old != sourcePwd) {
+                    return MapControl.getInstance().error("原密码错误！").getMap();
+                }
+                
+
+                break;
+            case "2":
+                Teacher teacher = (Teacher) session.getAttribute("user");
+                System.out.println(teacher);
+                break;
+            case "3":
+                Student student = (Student) session.getAttribute("user");
+                System.out.println(student);
+                break;
+        }
+        return MapControl.getInstance().success().getMap();
     }
 
     // 跳转系统主页（数据展示/概览）
