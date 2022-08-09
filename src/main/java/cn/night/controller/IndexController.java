@@ -2,6 +2,7 @@ package cn.night.controller;
 
 import cn.night.entity.*;
 import cn.night.service.*;
+import cn.night.utils.MD5Utils;
 import cn.night.utils.MapControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,12 +61,17 @@ public class IndexController {
             case "1":
                 User user = (User) session.getAttribute("user");
                 String old = userService.detail(id).getUserPwd();
-                if (old != sourcePwd) {
+                if (!old.equals(MD5Utils.getMD5(sourcePwd))) {
+                    System.out.println(old);
+                    System.out.println(MD5Utils.getMD5(sourcePwd));
                     return MapControl.getInstance().error("原密码错误！").getMap();
                 }
-                
-
-                break;
+                user.setUserPwd(newPwd);
+                int result = userService.update(user);
+                if (result <= 0) {
+                    return MapControl.getInstance().error().getMap();
+                }
+                return MapControl.getInstance().success().getMap();
             case "2":
                 Teacher teacher = (Teacher) session.getAttribute("user");
                 System.out.println(teacher);
