@@ -64,4 +64,14 @@ public class StudentService {
         }
         return count;
     }
+
+    public List<Student> queryStudentByTeacher(Integer teacherId, Integer clazzId, Integer subjectId) {
+        Map<String, Object> map = MapParameter.getInstance()
+                .add("teacherId", teacherId)
+                .add("clazzId", clazzId)
+                .add("subjects", subjectId)
+                .getMap();
+        return studentDao.queryStudentByTeacher(map);
+
+    }
 }

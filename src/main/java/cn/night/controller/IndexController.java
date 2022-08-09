@@ -43,6 +43,11 @@ public class IndexController {
         return "index";
     }
 
+//    @GetMapping("logout")
+//    public String logout() {
+//        return "logout";
+//    }
+
     // 跳转用户基本信息页面
     @GetMapping("info")
     public String info() {
@@ -62,8 +67,6 @@ public class IndexController {
                 User user = (User) session.getAttribute("user");
                 String old = userService.detail(id).getUserPwd();
                 if (!old.equals(MD5Utils.getMD5(sourcePwd))) {
-                    System.out.println(old);
-                    System.out.println(MD5Utils.getMD5(sourcePwd));
                     return MapControl.getInstance().error("原密码错误！").getMap();
                 }
                 user.setUserPwd(newPwd);

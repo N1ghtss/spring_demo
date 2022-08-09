@@ -142,7 +142,7 @@
         //退出登录
         $('.login-out').on("click", function () {
             layer.confirm('确定退出吗？', function (index) {
-                window.location.href = "${basePath}/login";
+                window.location.href = "${basePath}/logout";
             });
         });
     });

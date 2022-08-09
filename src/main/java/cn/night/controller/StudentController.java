@@ -3,6 +3,7 @@ package cn.night.controller;
 import cn.night.entity.Clazz;
 import cn.night.entity.Student;
 import cn.night.entity.Subject;
+import cn.night.entity.Teacher;
 import cn.night.service.ClazzService;
 import cn.night.service.StudentService;
 import cn.night.service.SubjectService;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
 @RequestMapping("student")
@@ -31,14 +34,43 @@ public class StudentController {
         return "student/list";
     }
 
-
+    // 老师-查询学生
     @GetMapping("teacher_student")
-    public String teacher_student(ModelMap modelMap) {
+    public String teacher_student(ModelMap modelMap, HttpSession session) {
         List<Clazz> clazzes = clazzService.query(null);
         List<Subject> subjects = subjectService.query(null);
+        Teacher teacher = (Teacher) session.getAttribute("user");
+        modelMap.addAttribute("teacher", teacher);
         modelMap.addAttribute("clazzes", clazzes);
         modelMap.addAttribute("subjects", subjects);
         return "student/teacher_student";
+    }
+
+    @PostMapping("teacher_student")
+    @ResponseBody
+    public Map<String, Object> tea_stu(Integer clazzId, Integer subjectId, HttpSession session) {
+        Teacher teacher = (Teacher) session.getAttribute("user");
+        List<Student> students = studentService.queryStudentByTeacher(teacher.getId(), clazzId, subjectId);
+        List<Subject> subjects = subjectService.query(null);
+        List<Clazz> clazzes = clazzService.query(null);
+        AtomicInteger count = new AtomicInteger();
+        students.forEach(entity -> {
+            subjects.forEach(subject -> {
+                // 判断学生中的subjectId和专业表的id是否一致
+                if (entity.getSubjectId() == subject.getId()) {
+                    entity.setSubject(subject);
+                }
+            });
+            clazzes.forEach(clazz -> {
+                // 判断学生表中的clazzId和班级表的id是否一致
+                if (entity.getClazzId() == clazz.getId()) {
+                    entity.setClazz(clazz);
+                }
+            });
+            count.getAndIncrement();
+        });
+        return MapControl.getInstance().success().add("data", students).add("count", count).getMap();
+
     }
 
     @GetMapping("add")
@@ -68,6 +100,7 @@ public class StudentController {
         // 将查询出来的数据储存到request域，实现表单回写
         modelMap.addAttribute("student", student);
         modelMap.addAttribute("subjects", subjects);
+//        modelMap.addAttribute("clazzes", clazzes);
         return "student/update";
     }
 
@@ -128,6 +161,7 @@ public class StudentController {
         Integer count = studentService.count(student);
         return MapControl.getInstance().success().page(list, count).getMap();
     }
+
 
 }
 

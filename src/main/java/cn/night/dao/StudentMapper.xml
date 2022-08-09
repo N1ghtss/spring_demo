@@ -58,6 +58,18 @@
         from tb_student
         <include refid="like"></include>
     </select>
+    <select id="queryStudentByTeacher" resultMap="Student">
+        select tb_student.*
+        from tb_student,
+        tb_section,
+        tb_score
+        where tb_student.id=tb_score.stu_id
+        and
+        tb_score.section_id =tb_section.id
+        and tb_section.teacher_id=#{teacherId}
+        <if test="clazzId != null">and tb_section.clazz_id=#{clazzId}</if>
+        <if test="subjectId != null">and subject_id=#{subjectId}</if>
+    </select>
     <!-- 插入 返回主键 -->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into tb_student(stu_no, stu_name, stu_pwd, card_no, gender, birthday, phone, pname, telephone, addr,

@@ -19,4 +19,6 @@ public interface StudentDao {
     int update(Map<String, Object> map);
 
     int delete(Map<String, Object> map);
+
+    List<Student> queryStudentByTeacher(Map<String, Object> map);
 }
